@@ -89,7 +89,7 @@ document.write('\
                     </li>\
                     <li class="dropdown">\
                         <a class="dropdown-toggle" href="#">\
-                            All Departments<i class="icon icon-angle-down"></i>\
+                            Furniture <i class="icon icon-angle-down"></i>\
                         </a>\
                         <ul class="dropdown-menu">\
                             <li><a id="tableDeskLink"><i class="icon icon-map-marker"></i> Tables & Desk</a></li>\
@@ -108,3 +108,5 @@ document.write('\
         </div>\
     </div>\
 </header>');
+
+// 2. Rename “ALL DEPARTMENTS” menu to Furniture. (DONE)
