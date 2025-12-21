@@ -247,6 +247,20 @@ document.addEventListener('DOMContentLoaded', function(){
                 </li>';
             }
 
+            // Add Showroom Management Sidebar Navigation
+            if (roleCanView) {
+                ulTxt += '\
+                <li>\
+                    <a href = "javascript:;" data-toggle="collapse" data-target="#showroomManagement" style="color: #C5C5C5;">\
+                        <i class="icon icon-th"></i> Showroom Management <i class="icon icon-caret-down"></i>\
+                    </a>\
+                    <ul id="showroomManagement" class="collapse">\
+                        <li>\
+                            <a href = "/A7/showroomLayoutManagement.html">Layout Management</a>\
+                        </li>\
+                </li>';
+            }
+
             document.getElementById('roleUl').innerHTML = ulTxt
         }
     }).catch(function (error) {
