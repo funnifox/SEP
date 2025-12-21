@@ -11,13 +11,32 @@ app.post('/api/addShowroomCategory',
     jsonParser,
     function (req, res) {
 
+        // missing field
+        if (!req.body || !req.body.name || req.body.name.trim() === '') {
+            return res.status(400).json({
+                success: false,
+                message: "Category name is required"
+            });
+        }
+
         showroom.addShowroomCategory(req.body)
             .then((result) => {
-                res.send(result);
+                res.status(201).send(result);
             })
             .catch((err) => {
+
+                if (err.type === 'DUPLICATE') {
+                    return res.status(409).json({
+                        success: false,
+                        message: "Category already exists"
+                    });
+                }
+
                 console.log(err);
-                res.status(500).send("Failed to add showroom category");
+                res.status(500).json({
+                    success: false,
+                    message: "Failed to add showroom category"
+                })
             });
     }
 );

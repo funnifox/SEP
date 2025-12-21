@@ -4,39 +4,63 @@ var showroomDB = {
     // Create Category. Showrooms can have categories 
     addShowroomCategory: function (details) {
         return new Promise((resolve, reject) => {
-            var conn = db.getConnection();
-            conn.connect(function (err) {
+            const conn = db.getConnection();
+
+            conn.connect((err) => {
                 if (err) {
-                    console.log(err);
                     conn.end();
                     return reject(err);
-                } else {
-                    var sql = `
+                }
+
+                // Check if name already exists
+                const checkSql = `
+                    SELECT id FROM showroom_category WHERE name = ?
+                `;
+
+                conn.query(checkSql, [details.name], (err, rows) => {
+                    if (err) {
+                        conn.end();
+                        return reject(err);
+                    }
+
+                    // dupe
+                    if (rows.length > 0) {
+                        conn.end();
+                        return reject({ type: 'DUPLICATE' });
+                    }
+
+                    // Insert only if not duplicate
+                    const insertSql = `
                         INSERT INTO showroom_category (name, description)
                         VALUES (?, ?)
                     `;
+
                     conn.query(
-                        sql,
+                        insertSql,
                         [details.name, details.description],
-                        function (err, result) {
+                        (err, result) => {
+                            conn.end();
+
                             if (err) {
-                                conn.end();
                                 return reject(err);
-                            } else {
-                                if (result.affectedRows > 0) {
-                                    conn.end();
-                                    return resolve({
-                                        success: true,
-                                        id: result.insertId
-                                    });
-                                }
                             }
+
+                            // Return inserted data
+                            resolve({
+                                success: true,
+                                data: {
+                                    id: result.insertId,
+                                    name: details.name,
+                                    description: details.description
+                                }
+                            });
                         }
                     );
-                }
-            })
-        })
-    }  
+                });
+            });
+        });
+    }
+
 }
 
 module.exports = showroomDB;
