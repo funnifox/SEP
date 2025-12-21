@@ -59,6 +59,36 @@ var showroomDB = {
                 });
             });
         });
+    },
+
+    // Get Category
+    getShowroomCategory: function() {
+        return new Promise((resolve, reject) => {
+            const conn = db.getConnection();
+
+            conn.connect((err) => {
+                if (err) {
+                    conn.end();
+                    return reject(err);
+                }
+
+                const sql = `
+                    SELECT id, name, description
+                    FROM showroom_category
+                    ORDER BY name ASC
+                `;
+
+                conn.query(sql, (err, rows) => {
+                    conn.end();
+
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    resolve(rows);
+                });
+            })
+        })
     }
 
 }

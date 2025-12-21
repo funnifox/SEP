@@ -41,4 +41,21 @@ app.post('/api/addShowroomCategory',
     }
 );
 
+app.get('/api/getShowroomCategory',
+    function (req, res) {
+
+        showroom.getShowroomCategory()
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                    success: false,
+                    message: "Failed to retrieve showroom categories"
+                });
+            });
+    }
+);
+
 module.exports = app;
