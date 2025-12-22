@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(function (data) {
         categories = data;
+
+        var categoryCount = document.getElementById("categoryCount")
+        if (categoryCount !== null) {
+            categoryCount.innerHTML = data.length;
+        }
+
         var htmlTxt = '';
 
         if (data && data.length > 0) {
