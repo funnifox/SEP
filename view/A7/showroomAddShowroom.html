@@ -28,7 +28,7 @@
                         <div class="col-lg-12">
                             <ol class="breadcrumb">
                                 <li>
-                                    <a href="showroomtManagement.html">Showroom Management</a>
+                                    <a href="showroomManagement.html">Showroom Management</a>
                                 </li>
                                 <li class="active">
                                     Add Showroom
@@ -58,6 +58,41 @@
                     -->
                     
                 <div class="showroom-container">
+                    
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form role="form" id="addForm" method="POST" action="/api/addShowroom" onsubmit="return false;">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Showroom Name</label>
+                                        <input class="form-control" name="name" type="text" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <input class="form-control" name="description" type="text" required>
+                                    </div>
+
+                                    <div class = "form-group">
+                                        <label>Category</label>
+                                        <select class = "form-control" id = "categorySelect" name = "categoryId" required>
+                                            <option value = "">Select Category Associated</option>
+                                        </select>
+                                    </div>
+
+                                    <div class = "form-group">
+                                        <label>Cover Image</label>
+                                        <input type="file" name="coverfile" id="imgfile" accept="image/*" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary">Add Showroom</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
 

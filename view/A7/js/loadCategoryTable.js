@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(function (data) {
         categories = data;
 
+        //---------- Category count -----------//
         var categoryCount = document.getElementById("categoryCount")
         if (categoryCount !== null) {
             categoryCount.innerHTML = data.length;
         }
 
+        //------------- Table -----------------//
         var htmlTxt = '';
 
         if (data && data.length > 0) {
@@ -41,8 +43,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 </tr>';
         }
 
-        document.getElementById("tableBody").innerHTML = htmlTxt;
-        $('#dataTables-example').dataTable();
+        var tableBody = document.getElementById("tableBody");
+        if (tableBody) {
+            tableBody.innerHTML = htmlTxt;
+            $('#dataTables-example').dataTable();
+        }
+
+        //----------Dropdown category-----------//
+        var categorySelect = document.getElementById("categorySelect");
+
+        if (categorySelect && data && data.length > 0) {
+            categorySelect.innerHTML = '<option value="">Select Category Associated</option>';
+
+            for (var i = 0; i < data.length; i++) {
+                var category = data[i];
+
+                var option = document.createElement("option");
+                option.value = category.id; 
+                option.textContent = category.name;
+
+                categorySelect.appendChild(option);
+            }
+        }
     })
     .catch(function (error) {
         console.log(error);

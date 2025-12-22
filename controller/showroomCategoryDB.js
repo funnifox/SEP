@@ -2,6 +2,17 @@ var express = require('express');
 var app = express();
 let middleware = require('./middleware.js');
 
+// File storage import multer
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: './uploads/showrooms',
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage });
+
 var showroom = require('../model/showroomCategoryModel.js');
 
 var bodyParser = require('body-parser');
@@ -61,6 +72,33 @@ app.get('/api/getShowroomCategory',
 );
 
 // ADD SHOWROOM LAYOUT DESIGN
+app.post('/api/addShowroom', jsonParser, function(req, res) {
 
+    console.log('BODY:', req.body);
+    // console.log('FILE:', req.file);
+    // upload.single('coverImage')
+
+    if (!req.body.name || !req.body.categoryId || !req.body.coverImage) {
+        return res.status(400).json({
+            success: false,
+            message: "Missing required fields"
+        });
+    }
+
+    showroom.addShowroom({
+        name: req.body.name,
+        description: req.body.description,
+        categoryId: req.body.categoryId,
+        coverImage: req.body.coverImage 
+    })
+    .then(result => res.status(201).json(result))
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({
+            success: false,
+            message: "Failed to add showroom"
+        });
+    });
+});
 
 module.exports = app;
