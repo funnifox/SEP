@@ -72,6 +72,7 @@ app.get('/api/getShowroomCategory',
 );
 
 // ADD SHOWROOM LAYOUT DESIGN
+// I cant figure out how to upload image
 app.post('/api/addShowroom', jsonParser, function(req, res) {
 
     console.log('BODY:', req.body);
