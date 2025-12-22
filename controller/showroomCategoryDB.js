@@ -7,6 +7,7 @@ var showroom = require('../model/showroomCategoryModel.js');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json({ extended: false });
 
+// ADD SHOWROOM CATEGORY
 app.post('/api/addShowroomCategory',
     jsonParser,
     function (req, res) {
@@ -41,6 +42,7 @@ app.post('/api/addShowroomCategory',
     }
 );
 
+// GET SHOWROOM CATEGORY 
 app.get('/api/getShowroomCategory',
     function (req, res) {
 
@@ -57,5 +59,8 @@ app.get('/api/getShowroomCategory',
             });
     }
 );
+
+// ADD SHOWROOM LAYOUT DESIGN
+
 
 module.exports = app;
