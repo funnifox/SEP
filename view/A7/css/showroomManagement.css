@@ -24,3 +24,36 @@
 
 /*------------------------------*/
 /* showroom */
+.showroom-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.showroom-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.showroom-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.showroom-card-body {
+    padding: 12px;
+}
+
+.showroom-card-body h4 {
+    margin: 0 0 6px;
+}
+
+.showroom-card-body p {
+    font-size: 14px;
+    color: #555;
+}
