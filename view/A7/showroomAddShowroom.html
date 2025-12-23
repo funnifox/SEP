@@ -62,7 +62,7 @@
                     <!-- Form -->
                     <div class="row">
                         <div class="col-lg-6">
-                            <form role="form" id="addForm" method="POST" action="/api/addShowroom" onsubmit="return false;">
+                            <form role="form" id="addForm" enctype="multipart/form-data" method="POST" action="/api/addShowroom" onsubmit="return false;">
                                 <fieldset>
                                     <div class="form-group">
                                         <label>Showroom Name</label>
@@ -82,8 +82,8 @@
                                     </div>
 
                                     <div class = "form-group">
-                                        <label>Cover Image URL</label>
-                                        <input class = "form-control" name = "coverImage" type = "url" placeholder = "https://example.com/image.jpg" required>
+                                        <label>Cover Image URL</label>         <!-- type="file" accept="image/*"  to open file explorer-->
+                                        <input class="form-control" name="coverImage" id="coverImage" type="file" accept="image/*" placeholder="https://example.com/image.jpg" required>
                                     </div>
 
                                     <div class="form-group">

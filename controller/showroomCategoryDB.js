@@ -63,7 +63,7 @@ app.get('/api/getShowroomCategory',
 );
 
 // ADD SHOWROOM LAYOUT DESIGN
-app.post('/api/addShowroom', uploadImg.single("coverImage"), jsonParser, function(req, res) {
+app.post('/api/addShowroom', uploadImg.single("coverImage"), function(req, res) {
 
     console.log('BODY:', req.body);
     console.log('FILE:', req.file);

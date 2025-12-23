@@ -16,18 +16,30 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+
+        // bc multer doesnt work well w json parser, 
+        // removed jsonParser from cont and now using formdata to pass the data
+        const fileInput = document.getElementById("coverImage");
+
+        if (!fileInput.files[0]) {
+            alert("Please select a cover image!");
+            return;
+        }
+
+
+        
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("categoryId", categoryId);
+        formData.append("coverImage", fileInput.files[0]);
+
+
+        console.log(formData)
+
         fetch('/api/addShowroom', {
             method: 'POST',
-            headers: {
-                // multipart/form-data instead of application/json for file upload
-                'Content-Type': 'multipart/form-data'
-            },
-            body: JSON.stringify({
-                name: name,
-                description: description,
-                categoryId: categoryId,
-                coverImage: coverImage
-            })
+            body: formData
         })
         .then(res => res.json())
         .then(data => {
@@ -46,26 +58,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-// file import function
-function importData() {
-  let input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = _ => {
-    // you can use this method to get file and perform respective operations
-            let files =   Array.from(input.files);
-            console.log(files);
-        };
-  input.click();
-  
-}
