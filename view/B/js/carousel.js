@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.className = `carousel-item ${activeClass}`;
                 div.innerHTML = `
                     <img src="${item.cover_image_url}" class="d-block w-100" alt="${item.name}" style="height:60vh; object-fit:cover;">
-                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                    <div class="carousel-caption">
                         <h5>${item.name}</h5>
+                        <small>${item.category_name}</small>
                         <p>${item.description}</p>
-                        <p>${item.category_name}</p>
                     </div>
                 `;
                 carouselInner.appendChild(div);
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 carouselIndicators.appendChild(indicator);
             });
 
-            // Initialize carousel manually after items are added
+            // Initialize carousel manually, move to new slide every 3 seconds
             new bootstrap.Carousel('#hero-carousel', {
                 interval: 3000,
                 ride: 'carousel',

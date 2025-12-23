@@ -1,26 +1,101 @@
-/* Carousel item container */
+/* =========================
+   HERO CAROUSEL BASE
+========================= */
+
+#hero-carousel {
+    margin-top: 40px;
+}
+
 .carousel-item {
-    height: 70vh;
+    height: 65vh;
+    position: relative;
+    background: #f5f5f5;
 }
 
-/* Images inside carousel */
+/* Image */
 .carousel-item img {
-    height: 100%;
     width: 100%;
-    object-fit: cover;
-    filter: brightness(0.6);
+    height: 100%;
+    object-fit: contain;
 }
 
-.carousel-caption {
-    top: 0;
+/* =========================
+   BOTTOM INFO RAIL
+========================= */
+
+.carousel-item::after {
+    content: "";
+    position: absolute;
     bottom: 0;
     left: 0;
-    right: 0;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    background: rgba(0,0,0,0.3);
+    width: 100%;
+    height: 72px;
+    background: #111;
+    z-index: 1;
+}
+
+/* Caption container */
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    text-align: left;
+    background: none;
+    z-index: 2;
+}
+
+/* Caption inner alignment */
+.carousel-caption > * {
+    max-width: 600px;
+}
+
+/* Category / tag */
+.carousel-caption small {
+    display: block;
+    color: #aaa;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+/* Title */
+.carousel-caption h5 {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Subtitle */
+.carousel-caption p {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin: 2px 0 0;
+}
+
+/* =========================
+   CONTROLS & INDICATORS
+========================= */
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 36px;
+    height: 36px;
+}
+
+.carousel-indicators {
+    bottom: 90px;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #bbb;
+}
+
+.carousel-indicators .active {
+    background-color: #000;
 }
