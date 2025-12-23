@@ -11,6 +11,19 @@ document.addEventListener('DOMContentLoaded', loadAllShowrooms);
             });
     }
 
+    // Load showrooms filtered by category
+    function loadShowroomsByCategory(category) {
+        let url = '/api/showShowroomByCategory';
+        if (category && category !== 'all') {
+            url += `?category=${encodeURIComponent(category)}`;
+        }
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => renderShowrooms(data))
+            .catch(err => console.error('Failed to filter showrooms', err));
+    }
+
     function renderShowrooms(showrooms) {
         // select grid container by id
         const grid = document.getElementById('showroomGrid');

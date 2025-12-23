@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         categories.forEach(cat => {
             const option = document.createElement("option");
-            option.value = cat.id;    
+            option.value = cat.name;    
             option.textContent = cat.name;
             select.appendChild(option);
         });
@@ -22,4 +22,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Failed to load categories:", error);
         dropdownContainer.innerHTML = "<p>Failed to load categories.</p>";
     }
+
+    // Filter showrooms when dropdown is used
+    select.addEventListener("change", () => {
+        const selectedCategory = select.value;
+        loadShowroomsByCategory(selectedCategory);
+    })
 });
