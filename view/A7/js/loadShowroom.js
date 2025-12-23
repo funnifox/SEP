@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <p class="description">${showroom.description}</p>
 
                         <div class="admin-actions">
-                            <button class="btn-edit">
+                            <button class="btn-edit" onclick="window.location.href='showroomEditFurniture.html'">
                                 <i class="icon icon-edit"></i>
                                 Edit
                             </button>
