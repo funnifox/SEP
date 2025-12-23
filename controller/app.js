@@ -21,6 +21,7 @@ app.use(require('./storagebinentityDB.js'));
 
 // Showroom
 app.use(require('./showroomCategoryDB.js'));
+app.use(require('./showroomPublicDB.js'))
 
 
 
