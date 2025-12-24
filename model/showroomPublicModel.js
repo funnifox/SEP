@@ -151,9 +151,9 @@ var showroomPublicDB = {
                 let sql = `
                     SELECT 
                         s.id AS showroom_id, s.name AS showroom_name, -- showroom info
-                        sf.furniture_id, sf.position_json,                        -- layout info
-                        f.IMAGEURL,                                              -- furniture image
-                        i.name AS furniture_name                                   -- furniture name
+                        sf.furniture_id, sf.position_json,           -- furniture info
+                        f.IMAGEURL,                                         
+                        i.name AS furniture_name                                 
                     FROM showroom s
                     LEFT JOIN showroom_furniture sf ON s.id = sf.showroom_id
                     LEFT JOIN furnitureentity f ON sf.furniture_id = f.ID

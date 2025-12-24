@@ -83,11 +83,10 @@ app.get('/api/getShowroomDetails', function (req, res) {
             if (result.length > 0) {
                 showroomData.id = result[0].showroom_id;
                 showroomData.name = result[0].showroom_name;
-                showroomData.location = result[0].location;
                 showroomData.furnitures = result.map(item => ({
                     id: item.furniture_id,
                     name: item.furniture_name,
-                    image: item.image_url,
+                    image: item.IMAGEURL,
                     position: JSON.parse(item.position_json)
                 }));
             }
