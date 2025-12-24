@@ -114,9 +114,9 @@ var showroomPublicDB = {
                 }
 
                 const sql = `
-                    SELECT *
+                    SELECT DISTINCT CATEGORY
                     FROM itementity
-                    WHERE DTYPE = 'FurnitureEntity'
+                    WHERE DTYPE = 'FurnitureEntity';
                 `;
 
                 conn.query(sql, (err, rows) => {
