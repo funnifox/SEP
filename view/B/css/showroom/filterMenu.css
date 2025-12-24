@@ -1,0 +1,132 @@
+.filter-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: rgba(0,0,0,0);
+    opacity: 0;
+    pointer-events: none;
+    transition: background 0.3s, opacity 0.3s;
+    z-index: 9998;
+}
+
+.filter-popup.active {
+    background: rgba(0,0,0,0.4);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.filter-panel {
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90%;
+    background: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.3);
+    overflow-y: auto;
+}
+
+.filter-popup.active .filter-panel {
+    transform: translateY(0);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-description {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background-color: #f8f9fa; 
+    border-left: 4px solid #007bff; 
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.filter-description p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.close-btn {
+    font-size: 4.0rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: red;
+}
+
+.filter-columns {
+    display: flex;
+    gap: 30px;
+}
+
+/* Left column (brands) */
+.filter-column.brands {
+    flex: 1;
+}
+
+.filter-column.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Section headings */
+.filter-column h6 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Checkboxes */
+.checkbox-list label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.checkbox-list input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #007bff;
+}
+
+/* Dimensions fields */
+.dimensions input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.apply-btn:hover {
+    background: #0056b3;
+}

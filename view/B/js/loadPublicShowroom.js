@@ -1,68 +1,97 @@
-document.addEventListener('DOMContentLoaded', loadAllShowrooms);
+document.addEventListener('DOMContentLoaded', () => {
+    // first, we load the showrooms
+    loadAllShowrooms();
 
-    function loadAllShowrooms() {
-        fetch('/api/showShowroomByCategory')
-            .then(res => res.json())
-            .then(data => {
-                renderShowrooms(data);
-            })
-            .catch(err => {
-                console.error('Failed to load showrooms', err);
-            });
-    }
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
 
-    // Load showrooms filtered by category
-    function loadShowroomsByCategory(category) {
-        let url = '/api/showShowroomByCategory';
-        if (category && category !== 'all') {
-            url += `?category=${encodeURIComponent(category)}`;
+    // target for search button click
+    searchBtn.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        search(query);
+    });
+
+    // press enter to search
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            search(query);
         }
+    });
+});
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => renderShowrooms(data))
-            .catch(err => console.error('Failed to filter showrooms', err));
+function loadAllShowrooms() {
+    fetch('/api/showShowroomByCategory')
+        .then(res => res.json())
+        .then(data => {
+            renderShowrooms(data);
+        })
+        .catch(err => {
+            console.error('Failed to load showrooms', err);
+        });
+}
+
+// Load showrooms filtered by category
+function loadShowroomsByCategory(category) {
+    let url = '/api/showShowroomByCategory';
+    if (category && category !== 'all') {
+        url += `?category=${encodeURIComponent(category)}`;
     }
 
-    function renderShowrooms(showrooms) {
-        // select grid container by id
-        const grid = document.getElementById('showroomGrid');
-        grid.innerHTML = '';
+    fetch(url)
+        .then(res => res.json())
+        .then(data => renderShowrooms(data))
+        .catch(err => console.error('Failed to filter showrooms', err));
+}
 
-        // loop through showrooms
-        showrooms.forEach((showroom, index) => {
+// Load showroom by search name
+function search(q) {
+    // If query is empty, revert to showing all
+    if (!q || q === '') {
+        loadAllShowrooms();
+        return;
+    }
 
-            // every 5th card is made larger to make it interesting instead of boring card layouts
-            const isLarge = index % 5 === 0;
+    let url = `/api/showShowroomBySearch`;
+    if (q && q !== '') {
+        url += `?q=${encodeURIComponent(q)}`;
+    }
 
-            // limit description length to prevent breaking thru the card, and replace the long text with '...'
-            const shortDesc = showroom.description
-                ? showroom.description.substring(0, 90) + '...'
-                : '';
+    fetch(url)
+        .then(res => res.json())
+        .then(data => renderShowrooms(data))
+        .catch(err => console.error('Failed to search', err));
+}
 
-            grid.innerHTML += `
-                <div class="${isLarge ? 'col-md-8' : 'col-md-4'}">
-                    <div class="card showroom-card h-100 border-0 shadow-sm ${isLarge ? 'large-card' : ''}">
+function renderShowrooms(showrooms) {
+    const grid = document.getElementById('showroomGrid');
+    grid.innerHTML = '';
 
-                        <div class="image-wrapper">
-                            <img src="${showroom.cover_image_url}" alt="${showroom.name}">
-                            <span class="category-badge">${showroom.category_name}</span>
-                        </div>
+    // loop through showrooms
+    showrooms.forEach((showroom, index) => {
 
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">${showroom.name}</h5>
+        // every 5th card is made larger, to provide visual interest instead of same card layout
+        const isLarge = index % 5 === 0;
 
-                            ${!isLarge ? `<p class="card-text text-muted small-desc">${shortDesc}</p>` : ''}
+        // limit description length, replace words with '...' if exceeds 90 letters
+        const shortDesc = showroom.description
+            ? showroom.description.substring(0, 90) + '...'
+            : '';
 
-                            <a 
-                                href="showroomDetail.html?id=${showroom.id}" 
-                                class="btn btn-dark view-btn mt-auto">
-                                View Showroom
-                            </a>
-                        </div>
+        grid.innerHTML += `
+            <div class="${isLarge ? 'col-md-8' : 'col-md-4'}">
+                <div class="card showroom-card h-100 border-0 shadow-sm ${isLarge ? 'large-card' : ''}">
+                    <div class="image-wrapper">
+                        <img src="${showroom.cover_image_url}" alt="${showroom.name}">
+                        <span class="category-badge">${showroom.category_name}</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${showroom.name}</h5>
+                        ${!isLarge ? `<p class="card-text text-muted small-desc">${shortDesc}</p>` : ''}
+                        <a href="showroomDetail.html?id=${showroom.id}" class="btn view-btn mt-auto">View Showroom</a>
                     </div>
                 </div>
-            `;
-        }
-    );
+            </div>
+        `;
+    });
 }

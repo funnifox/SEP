@@ -39,3 +39,6 @@ You may get an error when registering and login due to the system requiring you 
 ![doc](./view/B/img/doc/image.png)
 
 - It should be able to login now.
+
+# NOTE:
+## Go itementity table for more furniture info
