@@ -37,14 +37,17 @@ function renderShowroom(showroom) {
     const showroomDescription = document.getElementById("showroom-description");
     showroomDescription.innerHTML = `
         <h2 class="about-title">
-            <i class="fas fa-palette"></i> About this showroom
+            <i class="fas fa-palette"></i> About This Showroom
         </h2>
 
         <p class="luxury-description">
             ${showroom.description}
         </p>
 
-        <div id="color-palette" class="color-palette"></div>
+        <div class="color-palette-wrapper">
+            <p>Colors Used:</p>
+            <div id="color-palette" class="color-palette"></div>
+        </div>
     `;
 
     // Extract colors after image loads
@@ -117,13 +120,22 @@ function extractDominantColors(img, count = 3) {
 
 function renderColorPalette(colors) {
     const palette = document.getElementById("color-palette");
-    palette.innerHTML = "";
+    palette.innerHTML = ""; // Clear existing swatches
 
-    // Create a div for each color and append it
     colors.forEach(color => {
-        const swatch = document.createElement("div");  // Create a div for the color
-        swatch.className = "color-swatch";             // Apply CSS class
-        swatch.style.backgroundColor = color;         // Set the background color
-        palette.appendChild(swatch);                  // Add swatch to the palette
+        const swatch = document.createElement("div");
+        swatch.className = "color-swatch";
+        swatch.style.backgroundColor = color;
+
+        // Show RGB/HEX value on hover
+        swatch.title = color; // simple tooltip
+
+        // Optional: add visible overlay text on hover
+        const tooltip = document.createElement("span");
+        tooltip.className = "swatch-tooltip";
+        tooltip.textContent = color;
+        swatch.appendChild(tooltip);
+
+        palette.appendChild(swatch);
     });
 }
