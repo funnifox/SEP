@@ -16,6 +16,7 @@
     background-color: white;
     border-radius: 0.5rem;
     padding: 1rem;
+    flex: 0 0 12rem;
     margin: 1rem;
     width: 12rem;
 }
@@ -56,6 +57,7 @@
 .furniture-item {
     display: flex;
     flex-direction: column;
+    min-height: 20rem;
     height: 100%;           /* or a fixed height if you prefer */
 }
 
@@ -98,10 +100,11 @@
     color: #33e23c;
     border: none;
     border-radius: 0.7rem;
-    width: 90%;
-    height: 60%;
+    width: 6rem;
+    height: 6rem;
     cursor: pointer;
     flex-direction: column;
+    display: flex;
     justify-content: center;
     align-items: center;
     transition: background 0.2s, transform 0.2s;

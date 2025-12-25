@@ -26,10 +26,9 @@ function getFurniture(arr){
         furnitureHTML += `
         <div class="furniture-item">
             <b>${arr[i].NAME}</b><br>
-            <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}" style="height:8rem;"><br>
+            <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
             <button class="btn-delete btn" style="width:100%;" data-id="${arr[i].ID}"><i class="fas fa-trash"></i> Delete</button>
         </div>
-        
             `
     }
 
@@ -43,8 +42,7 @@ function getFurniture(arr){
     
 } 
 
-
-/// no you cant add a kit kat to the showroom.
+/// no you cannot add a kit kat to the showroom.
 function add(furnitureName){
     let staff = JSON.parse(sessionStorage.getItem("staff"))
     const data = {
@@ -66,6 +64,26 @@ function add(furnitureName){
     });
 }
 
+function del(id){
+    let staff = JSON.parse(sessionStorage.getItem("staff"))
+    const data = {
+        staffId: parseInt(staff.id),
+        furnitureId: id
+    }
+
+    fetch(`/api/delShowroomFurniture/${GetURLParameter(param1)}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        location.reload();
+        return response.json();
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
 // get single item by sku (country id is not needed but nice to have)
 // fetch(`/api/getFurnitureBySku?sku=${arr[i].SKU}&countryId=${countryId}`, {
 //     method: 'GET',
@@ -112,10 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error(err);
         alert('Failed to load showroom');
     });
-
-
-
-
 
 });
 

@@ -300,6 +300,52 @@ var showroomDB = {
             
         })
     },
+
+    // delete furniture from showroom
+    delShowroomFurniture: function (details, showroomId) {
+        return new Promise((resolve, reject) => {
+            const conn = db.getConnection();
+
+            conn.connect(err => {
+                if (err) {
+                    conn.end();
+                    return reject(err);
+                }
+
+                const checkSql = `
+                    SELECT * FROM staffentity_roleentity WHERE staffs_ID = ? AND roles_ID = 1;
+                `;
+
+                conn.query(checkSql, [details.staffId], (err, checkRows) => {
+                    if (err) {
+                        conn.end();
+                        return reject(err);
+                    }
+
+                    if (checkRows.length === 0) {
+                        conn.end();
+                        return resolve(null);
+                    }
+
+                    const deleteSql = `
+                        DELETE FROM showroom_furniture
+                        WHERE showroom_id = ? AND furniture_id = ?;
+                    `;
+
+                    conn.query(deleteSql, [showroomId, details.furnitureId], (err, furnitureRows) => {
+                        conn.end();
+
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        resolve({});
+                    });
+                });
+            });
+        });
+    },
+
     // add furniture to showroom
     addShowroomFurniture: function (details, showroomId) {
         return new Promise((resolve, reject) => {
