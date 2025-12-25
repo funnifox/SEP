@@ -252,6 +252,10 @@
     overflow-x: auto;        /* horizontal scroll */
     padding: 10px 0;
     scroll-behavior: smooth; 
+    padding: 15px;
+    background: linear-gradient(90deg, #1c1c1c, #333); 
+    background: linear-gradient(90deg, #f8f9fa, #e0e0e0);
+    background: linear-gradient(90deg, #c2a46d, #f3e5ab); 
 }
 
 .other-showrooms::-webkit-scrollbar {
