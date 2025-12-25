@@ -27,10 +27,7 @@ function renderShowroom(showroom) {
     // Main showroom image
     const showroomImage = document.getElementById("showroom-image");
     showroomImage.innerHTML = `
-        <img id="mainShowroomImg"
-             src="${showroom.coverImage}"
-             alt="${showroom.name}"
-             class="img-fluid luxury-image">
+        <img id="mainShowroomImg" src="${showroom.coverImage}" alt="${showroom.name}" class="img-fluid luxury-image">
     `;
 
     // Description
@@ -120,7 +117,7 @@ function extractDominantColors(img, count = 3) {
 
 function renderColorPalette(colors) {
     const palette = document.getElementById("color-palette");
-    palette.innerHTML = ""; // Clear existing swatches
+    palette.innerHTML = ""; 
 
     colors.forEach(color => {
         const swatch = document.createElement("div");
@@ -130,7 +127,7 @@ function renderColorPalette(colors) {
         // Show RGB/HEX value on hover
         swatch.title = color; // simple tooltip
 
-        // Optional: add visible overlay text on hover
+        // add overlay text on hover to show rgb info
         const tooltip = document.createElement("span");
         tooltip.className = "swatch-tooltip";
         tooltip.textContent = color;

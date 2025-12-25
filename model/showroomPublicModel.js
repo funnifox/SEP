@@ -169,8 +169,7 @@ var showroomPublicDB = {
             });
         });
     }
-
-
+    
 }
 
 module.exports = showroomPublicDB;
