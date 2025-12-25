@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
 
 
@@ -92,19 +93,8 @@ function del(showroomId){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // assign btns
+// doing it like this instead of onclick="del()" for scalability
 document.addEventListener("click", function(e) {
     if (e.target.classList.contains("btn-delete")) {
         const id = e.target.dataset.id;

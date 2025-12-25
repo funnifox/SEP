@@ -10,6 +10,7 @@ pwd: junwei123
 Staff of IslandFurniture:
 URL:  http://localhost:8081/A1/staffLogin.html
 email: admin@if.com
+pwd: admin123
 
 ### Step 1:
 1. create .env

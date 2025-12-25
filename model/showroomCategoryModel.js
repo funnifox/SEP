@@ -184,7 +184,7 @@ var showroomDB = {
         })
     },
 
-        // Get showroom by id
+    // Get showroom by id
     getShowroomById: function(showroomId) {
         return new Promise((resolve, reject) => {
             const conn = db.getConnection();
@@ -200,9 +200,10 @@ var showroomDB = {
                     FROM showroom s
                     JOIN showroom_category c
                     ON s.category_id = c.id
+                    WHERE s.id = ?
                 `;
 
-                conn.query(sql, (err, rows) => {
+                conn.query(sql, [showroomId], (err, rows) => {
                     conn.end();
 
                     if (err) {
