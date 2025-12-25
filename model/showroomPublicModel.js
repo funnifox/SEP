@@ -150,7 +150,7 @@ var showroomPublicDB = {
 
                 let sql = `
                     SELECT 
-                        s.id AS showroom_id, s.name AS showroom_name, s.cover_image_url, -- showroom info
+                        s.id AS showroom_id, s.name AS showroom_name, s.cover_image_url, s.description, -- showroom info
                         sf.furniture_id, sf.position_json,           -- furniture info
                         f.IMAGEURL,                                         
                         i.name AS furniture_name                                 

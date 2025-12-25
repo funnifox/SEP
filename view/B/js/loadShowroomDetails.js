@@ -36,6 +36,16 @@ function renderShowroom(showroom) {
         `;
     }
 
+    // Description
+    const showroomDescription = document.getElementById("showroom-description");
+    showroomDescription.innerHTML = "";
+
+    if (showroom.furnitures.length > 0) {
+        showroomDescription.innerHTML = `
+            <h1>${showroom.description}</h1>
+        `;
+    }
+
     // Furniture list
     const furnitureList = document.getElementById("furniture-list");
     furnitureList.innerHTML = "";
