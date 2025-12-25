@@ -39,7 +39,7 @@
                     <div id="popup" class="popup">
                         <div class="popup-content">
                             <span class="close" onclick="closePopup()">&times;</span>
-                            <h2>Add furniture</h2>                      <!-- target="_blank" opens in new tab-->
+                            <h2>Add furniture</h2>                      <!-- target="_blank" opens link in new tab-->
                             <a href="http://localhost:8081/B/SG/virtualStore.html" target="_blank">
                                 Open furniture catalog in a new tab to browse for furniture.
                             </a>
@@ -47,9 +47,10 @@
                             <br><br>
                             
                             <form id="add-furniture-form">
-                                <label for="furniture-sku">Enter Furniture Name:</label><br>
+                                <label for="furniture-name">Enter Furniture Name:</label><br>
                                 <input type="text" id="furniture-name" name="furniture-name" required><br><br>
-                                <input type="submit" value="Add Furniture">
+                                <input type="submit" class="btn btn-danger btn-add">
+                            </form>
                         </div>
                     </div>
 

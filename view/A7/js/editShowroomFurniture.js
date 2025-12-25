@@ -1,4 +1,4 @@
-
+let param1="showroomId"
 
 
 // url param reader
@@ -26,7 +26,7 @@ function getFurniture(arr){
         furnitureHTML += `
         <div class="furniture-item">
             <b>${arr[i].NAME}</b><br>
-            <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}" style="width:100%;"><br>
+            <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}" style="height:8rem;"><br>
             <button class="btn-delete btn" style="width:100%;" data-id="${arr[i].ID}"><i class="fas fa-trash"></i> Delete</button>
         </div>
         
@@ -36,13 +36,35 @@ function getFurniture(arr){
 
     furnitureHTML += `
         <div class="furniture-item add-furniture" style="background-color: transparent;">
-            <button class="btn-add"><i class="fas fa-plus-circle"></i></button>
+            <button class="popup-btn"><i class="fas fa-plus-circle"></i></button>
         </div>
 `
     document.getElementById('furniture-list').innerHTML = furnitureHTML;
     
 } 
 
+
+/// no you cant add a kit kat to the showroom.
+function add(furnitureName){
+    let staff = JSON.parse(sessionStorage.getItem("staff"))
+    const data = {
+        staffId: parseInt(staff.id),
+        furnitureName: furnitureName
+    }
+
+    fetch(`/api/addShowroomFurniture/${GetURLParameter(param1)}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        location.reload();
+        return response.json();
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
 
 // get single item by sku (country id is not needed but nice to have)
 // fetch(`/api/getFurnitureBySku?sku=${arr[i].SKU}&countryId=${countryId}`, {
@@ -57,12 +79,8 @@ function getFurniture(arr){
 
 
 
-function openPopup() {
-    document.getElementById("popup").style.display = "block";
-}
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
-}
+function openPopup() {document.getElementById("popup").style.display = "block";}
+function closePopup() {document.getElementById("popup").style.display = "none";}
 // Close popup if user clicks outside the content box
 window.onclick = function(event) {
     const popup = document.getElementById("popup");
@@ -76,7 +94,6 @@ window.onclick = function(event) {
 
 document.addEventListener('DOMContentLoaded', function () {
     
-    let param1="showroomId"
     fetch(`/api/getShowroomById/${GetURLParameter(param1)}`, {
         method: 'GET',
     })
@@ -117,6 +134,11 @@ document.addEventListener("click", function(e) {
     }
 
     if (e.target.classList.contains("btn-add")) {
+        event.preventDefault();
+        add(document.getElementById("furniture-name").value);
+    }
+
+    if (e.target.classList.contains("popup-btn")) {
         openPopup()
     }
 });

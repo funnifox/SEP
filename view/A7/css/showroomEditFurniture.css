@@ -49,10 +49,23 @@
     max-width: 90%;
     text-align: center;
 }
-.btn-add i {
+.popup-btn i {
     pointer-events: none;
 }
 
+.furniture-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;           /* or a fixed height if you prefer */
+}
+
+.furniture-item img {
+    width: 100%;
+}
+
+.btn-delete {
+    margin-top: auto;      /* 👈 pushes button to bottom */
+}
 
 /* btns */
 .btn-delete {
@@ -80,7 +93,7 @@
 }
 
 
-.btn-add {
+.popup-btn {
     background: #ffffff00;
     color: #33e23c;
     border: none;
@@ -94,11 +107,11 @@
     transition: background 0.2s, transform 0.2s;
 }
 
-.btn-add i {
+.popup-btn i {
     font-size: 3.5rem;
 }
 
-.btn-add:hover {
+.popup-btn:hover {
     background: #2dbd34;
     color: #f0f0f0;
 }

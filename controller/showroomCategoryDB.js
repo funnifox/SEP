@@ -153,4 +153,30 @@ app.delete('/api/delShowroom', jsonParser,function (req, res) {
             });
     }
 );
+
+// ADD SHOWROOM FURNITURE
+app.post('/api/addShowroomFurniture/:showroomId', jsonParser,function (req, res) {
+
+     
+        // missing field
+        if (!req.body||!req.params.showroomId) {
+            return res.status(400).json({
+                success: false,
+                message: "missing parameters"
+            });
+        }
+
+    showroom.addShowroomFurniture(req.body, req.params.showroomId)
+            .then((result) => {
+                res.status(201).send(result);
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                    success: false,
+                    message: "Failed to add furniture to showroom"
+                })
+            });
+    }
+);
 module.exports = app;

@@ -241,7 +241,6 @@ var showroomDB = {
         });
     },
 
-
     // Delete showroom by ID
     delShowroom: function (details) { 
         return new Promise((resolve, reject) => {
@@ -301,6 +300,83 @@ var showroomDB = {
             
         })
     },
+    // add furniture to showroom
+    addShowroomFurniture: function (details, showroomId) {
+        return new Promise((resolve, reject) => {
+            const conn = db.getConnection();
+
+            conn.connect(err => {
+                if (err) return reject(err);
+
+                const checkStaffSql = `
+                    SELECT 1
+                    FROM staffentity_roleentity
+                    WHERE staffs_ID = ? AND roles_ID = 1
+                    LIMIT 1;
+                `;
+
+                conn.query(checkStaffSql, [details.staffId], (err, staffRows) => {
+                    if (err) {
+                        conn.end();
+                        return reject(err);
+                    }
+
+                    if (staffRows.length === 0) {
+                        conn.end();
+                        return reject({ type: "NOT_AUTHORIZED" });
+                    }
+
+                    const checkFurnitureSql = `
+                        SELECT id
+                        FROM itementity
+                        WHERE name = ?
+                        LIMIT 1;
+                    `;
+
+                    conn.query(checkFurnitureSql, [details.furnitureName], (err, furnitureRows) => {
+                        if (err) {
+                            conn.end();
+                            return reject(err);
+                        }
+
+                        if (furnitureRows.length === 0) {
+                            conn.end();
+                            return reject({ type: "FURNITURE_NOT_FOUND" });
+                        }
+
+                        const furnitureId = furnitureRows[0].id;
+
+                        console.log(furnitureId)
+                        const insertSql = `
+                            INSERT INTO showroom_furniture
+                            (showroom_id, furniture_id, position_json)
+                            VALUES (?, ?, ?);
+                        `;
+
+                        conn.query(
+                            insertSql,
+                            [showroomId, furnitureId, "{}"],
+                            (err, result) => {
+                                conn.end();
+
+                                if (err) return reject(err);
+
+                                resolve({
+                                    success: true,
+                                    data: {
+                                        showroomId,
+                                        furnitureId,
+                                        staffId: details.staffId
+                                    }
+                                });
+                            }
+                        );
+                    });
+                });
+            });
+        });
+    }
+
 }
 
 module.exports = showroomDB;
