@@ -46,6 +46,16 @@ function showFurniturePanel(event, furnitureId) {
             panel.style.left = (event.clientX + 20) + "px"; 
             panel.style.top = (event.clientY - 50) + "px";
 
+
+            // Buttons for buy now and add to cart
+            addToCartButton = document.getElementById("add-to-cart-btn");
+            buyNowButton = document.getElementById("buy-now-btn");
+            moreDetailButton = document.getElementById("more-details-btn");
+
+            moreDetailButton.addEventListener('click', () => {
+                window.location.href = `/B/SG/furnitureProductDetails.html?sku=${f.SKU}`
+            })
+
             panel.classList.remove("hidden");
         })
         .catch(err => {

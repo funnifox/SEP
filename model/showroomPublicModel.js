@@ -184,7 +184,7 @@ var showroomPublicDB = {
                     SELECT
                         sf.furniture_id,
                         f.IMAGEURL,
-                        i.NAME, i.CATEGORY, i.DESCRIPTION, i.HEIGHT, i.WIDTH, i._LENGTH
+                        i.NAME, i.CATEGORY, i.DESCRIPTION, i.HEIGHT, i.WIDTH, i._LENGTH, i.SKU
 
                     FROM showroom_furniture sf
                     LEFT JOIN furnitureentity f ON sf.furniture_id = f.ID
