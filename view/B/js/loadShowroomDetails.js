@@ -71,6 +71,9 @@ function renderShowroom(showroom) {
 
         furnitureList.appendChild(div);
     });
+
+    // Use function from furniturePosition.js
+    renderFurnitureHotspots(showroom);
 }
 
 
