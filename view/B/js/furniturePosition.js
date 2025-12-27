@@ -20,8 +20,11 @@ function renderFurnitureHotspots(showroom) {
                     "y": 1
                 }
          */
-        dot.style.left = `${(f.position.x * 100)/rect.width}%`;
-        dot.style.top  = `${(f.position.y * 100)/rect.width}%`;
+        const OFFSET_X_PERCENT = 7; // right
+        const OFFSET_Y_PERCENT = 7; // down
+
+        dot.style.left = `${(f.position.x * 100)/(rect.width*(170/100)) + OFFSET_X_PERCENT}%`;
+        dot.style.top  = `${(f.position.y * 100)/rect.height*(60/100) + OFFSET_Y_PERCENT}%`;
 
         // store furniture id
         dot.dataset.id = f.ID
