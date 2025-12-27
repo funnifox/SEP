@@ -70,4 +70,34 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(error);
     });
 
+
+
+
+
+
+
+
+
+// get showroom count
+    fetch('/api/getShowroom', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + authToken
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const showrooms = data; 
+
+        if (!showrooms || showrooms.length === 0) {
+            return;
+        }else{
+            document.getElementById("showroomCount").innerHTML = showrooms.length;
+        }
+    })
+
+
+
+
+
 }, false);

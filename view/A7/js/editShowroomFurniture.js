@@ -249,6 +249,10 @@ document.addEventListener("click", function(e) {
         openPopup()
     }
 });
+// disabl right click for canva point removal
+canvas.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
 
 
 
@@ -258,8 +262,7 @@ document.addEventListener("click", function(e) {
 
 
 
-
-
+// canvas
 const points = [];
 
 canvas.addEventListener("click", (e) => {
@@ -271,24 +274,48 @@ canvas.addEventListener("click", (e) => {
   redraw();
 });
 
-    function redraw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (currentImage instanceof HTMLImageElement) {
-        ctx.drawImage(currentImage, 0, 0);
+    if (currentImage instanceof HTMLImageElement) {
+    ctx.drawImage(currentImage, 0, 0);
+    }
+
+    points.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+
+        ctx.fillStyle = "#ffffffff";
+        ctx.fill();
+
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = "#ff4d4d";
+        ctx.stroke();
+    });
+}
+
+canvas.addEventListener("mousedown", (e) => {
+    if (e.button !== 2) return; // 2 = right click
+
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+    removeNearestPoint(x, y);
+});
+
+function removeNearestPoint(x, y) {
+    const hitRadius = 20;
+
+    for (let i = points.length - 1; i >= 0; i--) {
+        const p = points[i];
+        const dx = p.x - x;
+        const dy = p.y - y;
+
+        if (Math.sqrt(dx * dx + dy * dy) <= hitRadius) {
+            points.splice(i, 1);
+            redraw();
+            return;
         }
-
-        points.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-
-            ctx.fillStyle = "#ffffffff";
-            ctx.fill();
-
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "#ff4d4d";
-            ctx.stroke();
-        }
-    );
-
+    }
 }

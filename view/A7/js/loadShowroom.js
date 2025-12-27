@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.innerHTML = '';
 
+
         if (!showrooms || showrooms.length === 0) {
             container.innerHTML = '<p>No showrooms found.</p>';
             return;
