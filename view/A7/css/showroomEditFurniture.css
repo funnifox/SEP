@@ -17,7 +17,7 @@
     border: 0.3rem solid #333;
     border-radius: 0.5rem;
     z-index: 1000;
-    width: 15rem;
+    min-width: 15rem;
 }
 
 /* furniture row display */
@@ -70,7 +70,7 @@
     pointer-events: none;
 }
 
-.furniture-item {
+/* .furniture-item {
     display: flex;
     flex-direction: column;
     min-height: 20rem;
@@ -79,11 +79,11 @@
 
 .furniture-item img {
     width: 100%;
-}
-
+} */
+/* 
 .btn-delete {
     margin-top: auto;
-}
+} */
 
 /* btns */
 /* .btn-delete {
@@ -99,7 +99,8 @@
 
 .btn-delete:active {
     transform: scale(0.96);
-}
+} */
+/* 
 .add-furniture {
     display: flex;
     justify-content: center;
@@ -111,49 +112,34 @@
 }
 */
 
+#furniture-info{
+    padding: 1rem;
+}
 
-.popup-btn {
+/* .popup-btn {
     background: #ffffff00;
     color: #33e23c;
     border: none;
     border-radius: 0.7rem;
-    width: 6rem;
-    height: 6rem;
     cursor: pointer;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: background 0.2s, transform 0.2s;
-}
+} */
 
-.popup-btn i {
+/* .popup-btn i {
     font-size: 3.5rem;
-}
+} */
 
-.popup-btn:hover {
+/* .popup-btn:hover {
     background: #2dbd34;
     color: #f0f0f0;
-} 
+}  */
 
 
 .context-menu-btn{
     background-color: #ebebeb;
     width: 100%;
-    border-radius: 5%;
-    border: 0.2rem solid #dbdbdb;
+    border-radius: 0%;
 }
-
-hr {
-    border: none;
-    height: 3px;
-    background-color: #ff4d4d;
-}
-
-
-
-
-
 
 /* 
 
@@ -166,3 +152,21 @@ hr {
 .drag-header {
     cursor: move;
 } */
+
+
+#remove-point-btn{
+    background-color: #ff00009d;
+    color: white;
+}
+#remove-point-btn:hover{
+    background-color: #ff0000d2;
+}
+
+
+#tag-furniture-btn{
+    background-color: #27c200c5;
+    color: white;
+}
+#tag-furniture-btn:hover{
+    background-color: #27c200ee;
+}

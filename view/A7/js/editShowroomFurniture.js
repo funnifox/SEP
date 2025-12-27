@@ -18,53 +18,63 @@ function GetURLParameter(sParam){
     }
 }
 
-// function getFurniture(arr){
-//     console.log(arr);
+function getFurniture(arr){
 
-//     let furnitureHTML = '';
-//     // let draggableFurnitureHTML = '';
-//     for (let i = 0; i < arr.length; i++) {
-//         furnitureHTML += `
-//         <div class="furniture-item">
-//             <b>${arr[i].NAME}</b><br>
-//             <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
-//             <button class="btn-delete btn" style="width:100%;" data-id="${arr[i].ID}"><i class="fas fa-trash"></i> Delete</button>
-//         </div>
-//             `
+    points.length = 0;
+    // let furnitureHTML = '';
+    // let draggableFurnitureHTML = '';
+    for (let i = 0; i < arr.length; i++) {
+        let posJSON = arr[i].position_json;
+        let pos = JSON.parse(posJSON);
 
-//         // draggableFurnitureHTML += `
-//         // <div id="drag-${i}" class="draggable">
-//         //     <div id="drag-${i}-header" class="drag-header">
-//         //         <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
-//         //     </div>
-//         // </div>
-//         // `;
+        points.push({
+            x: pos.x, 
+            y: pos.y, 
+            id: arr[i].ID, 
+            name: arr[i].NAME,
+            description: arr[i].DESCRIPTION, 
+            imgurl: arr[i].IMAGEURL, 
+            tagged: true
+        });
 
-//     }
+        // furnitureHTML += `
+        // <div class="furniture-item">
+        //     <b>${arr[i].NAME}</b><br>
+        //     <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
+        //     <button class="btn-delete btn" style="width:100%;" data-id="${arr[i].ID}"><i class="fas fa-trash"></i> Delete</button>
+        // </div>
+        //     `
 
+        // draggableFurnitureHTML += `
+        // <div id="drag-${i}" class="draggable">
+        //     <div id="drag-${i}-header" class="drag-header">
+        //         <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
+        //     </div>
+        // </div>
+        // `;
 
-//     furnitureHTML += `
-//         <div class="furniture-item add-furniture" style="background-color: transparent;">
-//             <button class="popup-btn"><i class="fas fa-plus-circle"></i></button>
-//         </div>
+    }
+    redraw();
+
+    // furnitureHTML += `
+    //     <div class="furniture-item add-furniture" style="background-color: transparent;">
+    //         <button class="popup-btn"><i class="fas fa-plus-circle"></i></button>
+    //     </div>
         
-//     `
+    // `
     
     
-//     document.getElementById('furniture-list').innerHTML = furnitureHTML;
-//     // const showroom = document.getElementById('showroom');
-//     // showroom.innerHTML += draggableFurnitureHTML;
+    // document.getElementById('furniture-list').innerHTML = furnitureHTML;
+    // const showroom = document.getElementById('showroom');
+    // showroom.innerHTML += draggableFurnitureHTML;
 
-//     // // Wait for DOM to render
-//     // requestAnimationFrame(() => {
-//     //     const draggables = document.querySelectorAll('#showroom .draggable');
-//     //     draggables.forEach(div => dragElement(div));
-//     // });
+    // // Wait for DOM to render
+    // requestAnimationFrame(() => {
+    //     const draggables = document.querySelectorAll('#showroom .draggable');
+    //     draggables.forEach(div => dragElement(div));
+    // });
 
-
-
-
-// } 
+} 
 
 
 
@@ -129,7 +139,6 @@ function GetURLParameter(sParam){
 function add(furnitureName, x, y){
 
     let pos = `{"x": ${x}, "y":${y}}`;
-    console.log(pos);
 // no you cannot add a kit kat to the showroom.
     let staff = JSON.parse(sessionStorage.getItem("staff"))
     const data = {
@@ -152,8 +161,8 @@ function add(furnitureName, x, y){
     });
 }
 
-function openPopup() {document.getElementById("popup").style.display = "block";}
-function closePopup() {document.getElementById("popup").style.display = "none";}
+function openPopup(){document.getElementById("popup").style.display = "block";}
+function closePopup(){document.getElementById("popup").style.display = "none";}
 // Close popup if user clicks outside the content box
 window.onclick = function(event) {
     const popup = document.getElementById("popup");
@@ -193,19 +202,16 @@ function setShowroomImage(src) {
     currentImage = img;              
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
-
-    // Draw image
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0);
+    redraw();
   };
 }
 
 canvas.addEventListener("click", (e) => {
     const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    const x = (e.clientX-rect.left)*(canvas.width/rect.width);
+    const y = (e.clientY-rect.top)*(canvas.height/rect.height);
 
-    points.push({ x, y });
+    points.push({x, y, tagged: false});
 
     redraw();
 });
@@ -221,47 +227,25 @@ function redraw() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
 
-        ctx.fillStyle = "#ffffffff";
-        ctx.fill();
 
-        ctx.lineWidth = 1.5;
-        ctx.strokeStyle = "#646464ff";
-        ctx.stroke();
+        if(p.tagged){
+            ctx.fillStyle = "#ffffffff";
+            ctx.fill();
+
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#ff0000ff";
+            ctx.stroke();
+        }else{
+            ctx.fillStyle = "#ffffffff";
+            ctx.fill();
+
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#646464ff";
+            ctx.stroke();
+        }
+        
     });
 }
-
-canvas.addEventListener("mousedown", e => {
-  if (e.button !== 2) return; // right-click only
-
-  const rect = canvas.getBoundingClientRect();
-  const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-  const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-
-  // Find nearest point
-  const hitRadius = 10;
-  clickedPointIndex = null;
-
-  for (let i = points.length - 1; i >= 0; i--) {
-    const p = points[i];
-    const dx = p.x - x;
-    const dy = p.y - y;
-    if (Math.sqrt(dx*dx + dy*dy) <= hitRadius) {
-      clickedPointIndex = i;
-      break;
-    }
-  }
-
-  const menu = document.getElementById("context-menu");
-
-  if (clickedPointIndex !== null) {
-    // Show menu at cursor
-    menu.style.left = `${e.pageX}px`;
-    menu.style.top = `${e.pageY}px`;
-    menu.style.display = "block";
-  } else {
-    menu.style.display = "none"; // hide if no point nearby
-  }
-});
 
 function getPointAt(x, y, radius) {
   let nearestPoint = null;
@@ -331,26 +315,76 @@ document.addEventListener("click", function(e) {
         openPopup()
     }
 });
+// custom context menu 
+canvas.addEventListener("mousedown", e => {
+    if (e.button !== 2) return; // right-click only
+
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+    // Find nearest point
+    const hitRadius = 10;
+    clickedPointIndex = null;
+
+    for (let i = points.length - 1; i >= 0; i--) {
+        const p = points[i];
+        const dx = p.x - x;
+        const dy = p.y - y;
+        if (Math.sqrt(dx*dx + dy*dy) <= hitRadius) {
+            clickedPointIndex = i;
+            break;
+        }
+    }
+
+    const menu = document.getElementById("context-menu");
+
+    if (clickedPointIndex !== null) {
+        const point = points[clickedPointIndex];
+
+        // Show menu at cursor
+        menu.style.left = `${e.pageX}px`;
+        menu.style.top = `${e.pageY}px`;
+        menu.style.display = "block";
+
+        // Remove previous info
+        const prevInfo = document.getElementById("furniture-info");
+        if (prevInfo) prevInfo.remove();
+                            
+        // Only show furniture info if tagged
+        if(point.tagged){
+            const infoDiv = document.createElement("div");
+            infoDiv.id = "furniture-info";
+            infoDiv.style.display = "flex";
+            infoDiv.style.gap = "1rem";
+            infoDiv.innerHTML = `
+                <div style="width: 10rem">
+                <br>
+                    <img src="${point.imgurl}" alt="${point.name}" style="max-width: 100px; max-height: 100px; border-radius: 4px;">
+                </div>
+                <div style="width:17rem;">
+                    <b>${point.name}</b>
+                    <p style="margin:0;">${point.description}</p>
+                </div>
+            `;
+            menu.appendChild(infoDiv);
+
+            document.getElementById("context-menu-buttons").innerHTML = `<button class="btn context-menu-btn" id="remove-point-btn">Remove</button>`;
+        }else{
+            document.getElementById("context-menu-buttons").innerHTML = `
+                <button class="btn context-menu-btn" id="tag-furniture-btn">Tag furniture</button>
+                <button class="btn context-menu-btn" id="remove-point-btn">Remove</button>
+            `;
+        }
+
+    } else {
+        menu.style.display = "none"; // hide if no point nearby
+    }
+});
 // disabl right click for canva point removal
 canvas.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -368,14 +402,12 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data)
-        // getFurniture(data.furniture)
+        getFurniture(data.furniture)
         // const img = document.getElementById("showroom-img");
 
         // img.src = `${data.showroom.cover_image_url}`;
         // img.alt = data.showroom.cover_image_url;
         setShowroomImage(`${data.showroom.cover_image_url}`);
-        
     })
     .catch(err => {
         console.error(err);
