@@ -100,12 +100,19 @@
 
                         <!-- Right column -->
                         <div class = "filter-column right-column">
+
+                            <!-- Name -->
+                            <div class = "furniture-name">
+                                <h6>Furniture Name</h6>
+                                <input id = "furnitureNameInput" type = "text">
+                            </div>
+
                             <!-- Dimension -->
                             <div class = "dimensions">
                                 <h6>Dimensions</h6>
-                                <input type="text" placeholder="Length (cm)">
-                                <input type="text" placeholder="Width (cm)">
-                                <input type="text" placeholder="Height (cm)">
+                                <input id = "lengthInput" type="text" placeholder="Length (cm)">
+                                <input id = "widthInput" type="text" placeholder="Width (cm)">
+                                <input id = "heightInput" type="text" placeholder="Height (cm)">
                             </div>
 
                             <!-- Furniture type -->
@@ -118,7 +125,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="apply-btn">Apply Filters</button>
+                    <!-- Dont use submit, it refreshes the page instead of filtering -->
+                    <button id = "apply-filter" type="button" class="apply-btn">Apply Filters</button>
                 </form>
             </div>
         </div>

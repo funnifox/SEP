@@ -146,6 +146,14 @@ var showroomPublicDB = {
 
                 console.log('MODEL FILTERS:', filters);
 
+                /* SAMPPLE INPUT POSTMAN
+                        {
+                            "categories": ["Tables & Desks"],
+                            "length": 200,
+                            "height": 50
+                        }
+                */
+
                 let sql = `
                     SELECT DISTINCT s.*
                     FROM showroom s
@@ -164,7 +172,7 @@ var showroomPublicDB = {
                     params.push(...filters.categories);
                 }
 
-                // Dimension filters (optional)
+                // Dimension filters 
                 if (filters.length) {
                     sql += ` AND f._LENGTH >= ?`;
                     params.push(filters.length);
@@ -178,6 +186,12 @@ var showroomPublicDB = {
                 if (filters.height) {
                     sql += ` AND f.HEIGHT >= ?`;
                     params.push(filters.height);
+                }
+
+                // Furniture Name Filter
+                if (filters.name) {
+                    sql += ` AND f.NAME LIKE ?`;
+                    params.push(`%${filters.name}%`)
                 }
 
                 // close EXISTS

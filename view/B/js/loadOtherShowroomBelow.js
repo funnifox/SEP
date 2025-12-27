@@ -29,7 +29,7 @@ function renderOtherShowrooms(showrooms) {
         card.innerHTML = `
             <img src="${showroom.cover_image_url}" alt="${showroom.name}">
             <div class="card-info">
-                <h5>${showroom.name}</h5>
+                <h5 class = "other-showroom-name">${showroom.name}</h5>
             </div>
         `;
 

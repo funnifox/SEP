@@ -278,7 +278,7 @@
     padding: 15px;
     background: linear-gradient(90deg, #1c1c1c, #333); 
     background: linear-gradient(90deg, #f8f9fa, #e0e0e0);
-    background: linear-gradient(90deg, #c2a46d, #f3e5ab); 
+    background: linear-gradient(90deg, #4e4848, #ffffff); 
 }
 
 .other-showrooms::-webkit-scrollbar {
@@ -313,4 +313,8 @@
 .other-showroom-card .card-info {
     padding: 8px;
     font-size: 14px;
+}
+
+.other-showroom-name {
+    color: rgb(111, 111, 111);
 }

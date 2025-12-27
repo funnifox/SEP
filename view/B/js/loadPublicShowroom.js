@@ -4,6 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
+    const applyFilter = document.getElementById("apply-filter");
+
+    const filterPopup = document.getElementById("filter-popup");
+
+    // Filter 
+    filterPopup.addEventListener("click", () => {
+        const filters = collectFilters();
+        filterShowrooms(filters);
+
+        // Close the filter popup 
+        filterPopup.classList.remove("active");
+    })
 
     // target for search button click
     searchBtn.addEventListener('click', () => {
@@ -63,9 +75,80 @@ function search(q) {
         .catch(err => console.error('Failed to search', err));
 }
 
+// Filter showrooms that have those furnitures
+function filterShowrooms(filters) {
+
+    console.log("Filter payload: ", filters);
+
+    fetch(`/api/filterShowroom`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filters)
+    })
+
+    .then(res => {
+
+        // If search got no result
+        if (res.status === 404) {
+            return res.json().then(r => {
+                renderShowrooms([]); // Show "No Showrooms Found" 
+                console.warn(r.message);
+            });
+        }
+
+        // if have result, show it
+        return res.json();
+    })
+
+    .then(result => {
+        if (!result) return;
+        renderShowrooms(result.data);
+    })
+    .catch(err => {
+        console.error('Failed to filter showrooms', err);
+    });
+}
+
+function collectFilters() {
+    return {
+        // We use ID to detect which inputs are filled in for the filtering condition
+        name: document.getElementById('searchInput').value.trim() || null,
+
+        categories: getSelectedCategories(),
+
+        length: Number(document.getElementById('lengthInput')?.value) || null,
+        width: Number(document.getElementById('widthInput')?.value) || null,
+        height: Number(document.getElementById('heightInput')?.value) || null
+    };
+}
+
+// Get furniture checkboxes that are checked for the filtering condition
+function getSelectedCategories() {
+
+    // Select all checked checkboxes
+    const checked = document.querySelectorAll(
+        '#furniture-list input[type="checkbox"]:checked'
+    );
+
+    // Get the array of the selected category values
+    return Array.from(checked).map(cb => cb.value);
+}
+
 function renderShowrooms(showrooms) {
     const grid = document.getElementById('showroomGrid');
     grid.innerHTML = '';
+
+    // If no result
+    if (!showrooms || showrooms.length === 0) {
+        grid.innerHTML = `
+            <div class="col-12 text-center text-muted mt-5">
+                No showrooms found
+            </div>
+        `
+        return;
+    }
 
     // loop through showrooms
     showrooms.forEach((showroom, index) => {
