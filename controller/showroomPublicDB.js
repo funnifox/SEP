@@ -135,15 +135,33 @@ app.post('/api/filterShowroom', express.json(), (req, res) => {
         console.log('REQ BODY:', req.body);
 
         const filters = {
+            name: req.body.name || null,
             categories: req.body.categories || [],
             length: req.body.length || null,
             width: req.body.width || null,
             height: req.body.height || null
         };
 
+
+
         showroomPublic.filter(filters)
             .then(results => {
-                res.json(results);
+
+                // No results found
+                if (!results || results.length === 0) {
+                    return res.status(404).json({
+                        success: false,
+                        message: 'No showrooms found matching the filters',
+                        data: []
+                    })
+                }
+
+                // Result found
+                res.json({
+                    success: true,
+                    count: results.length,
+                    data: results
+                });
             })
             .catch(err => {
                 console.error('Filter showroom error:', err);
