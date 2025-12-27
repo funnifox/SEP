@@ -84,12 +84,16 @@ function filterShowrooms(filters) {
     })
 
     .then(res => {
+
+        // If search got no result
         if (res.status === 404) {
             return res.json().then(r => {
-                renderShowrooms([]);
+                renderShowrooms([]); // Show "No Showrooms Found" 
                 console.warn(r.message);
             });
         }
+
+        // if have result, show it
         return res.json();
     })
 
@@ -104,19 +108,26 @@ function filterShowrooms(filters) {
 
 function collectFilters() {
     return {
+        // We use ID to detect which inputs are filled in for the filtering condition
         name: document.getElementById('searchInput').value.trim() || null,
+
         categories: getSelectedCategories(),
+
         length: Number(document.getElementById('lengthInput')?.value) || null,
         width: Number(document.getElementById('widthInput')?.value) || null,
         height: Number(document.getElementById('heightInput')?.value) || null
     };
 }
 
+// Get furniture checkboxes that are checked for the filtering condition
 function getSelectedCategories() {
+
+    // Select all checked checkboxes
     const checked = document.querySelectorAll(
         '#furniture-list input[type="checkbox"]:checked'
     );
 
+    // Get the array of the selected category values
     return Array.from(checked).map(cb => cb.value);
 }
 
@@ -124,6 +135,7 @@ function renderShowrooms(showrooms) {
     const grid = document.getElementById('showroomGrid');
     grid.innerHTML = '';
 
+    // If no result
     if (!showrooms || showrooms.length === 0) {
         grid.innerHTML = `
             <div class="col-12 text-center text-muted mt-5">
