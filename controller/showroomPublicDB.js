@@ -130,4 +130,26 @@ app.get('/api/getFurnitureDetailById', function(req, res) {
         });
 })
 
+app.post('/api/filterShowroom', express.json(), (req, res) => {
+
+        console.log('REQ BODY:', req.body);
+
+        const filters = {
+            categories: req.body.categories || [],
+            length: req.body.length || null,
+            width: req.body.width || null,
+            height: req.body.height || null
+        };
+
+        showroomPublic.filter(filters)
+            .then(results => {
+                res.json(results);
+            })
+            .catch(err => {
+                console.error('Filter showroom error:', err);
+                res.status(500).json({ error: 'Failed to filter showrooms' });
+            });
+    }
+);
+
 module.exports = app;

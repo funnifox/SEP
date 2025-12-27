@@ -133,8 +133,72 @@ var showroomPublicDB = {
     },
 
     // Filter by Furniture category and/or dimensions 
-    filter: function() {
-        
+    filter: function (filters) {
+        return new Promise((resolve, reject) => {
+
+            const conn = db.getConnection();
+
+            conn.connect(err => {
+                if (err) {
+                    conn.end();
+                    return reject(err);
+                }
+
+                console.log('MODEL FILTERS:', filters);
+
+                let sql = `
+                    SELECT DISTINCT s.*
+                    FROM showroom s
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM showroom_furniture sf
+                        JOIN itementity f ON sf.furniture_id = f.ID
+                        WHERE sf.showroom_id = s.id
+                `;
+
+                const params = [];
+
+                // Furniture category filter
+                if (filters.categories && filters.categories.length > 0) {
+                    sql += ` AND f.CATEGORY IN (${filters.categories.map(() => '?').join(',')})`;
+                    params.push(...filters.categories);
+                }
+
+                // Dimension filters (optional)
+                if (filters.length) {
+                    sql += ` AND f._LENGTH >= ?`;
+                    params.push(filters.length);
+                }
+
+                if (filters.width) {
+                    sql += ` AND f.WIDTH >= ?`;
+                    params.push(filters.width);
+                }
+
+                if (filters.height) {
+                    sql += ` AND f.HEIGHT >= ?`;
+                    params.push(filters.height);
+                }
+
+                // close EXISTS
+                sql += `)`;
+
+                console.log('FINAL SQL:', sql);
+                console.log('PARAMS:', params);
+
+                conn.query(sql, params, (err, results) => {
+                    conn.end(); 
+
+                    if (err) {
+                        console.error('SQL ERROR:', err);
+                        return reject(err);
+                    }
+
+                    console.log('ROWS RETURNED:', results.length);
+                    resolve(results);
+                });
+            });
+        });
     },
 
     // Individual Showroom Layout Display with furnitures attached 
