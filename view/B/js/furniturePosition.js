@@ -1,5 +1,10 @@
 function renderFurnitureHotspots(showroom) {
+    console.log(showroom)
     const container = document.getElementById("showroom-image");
+
+
+    // get image width and height (for coord normalization)
+    const rect = container.getBoundingClientRect();
 
     showroom.furnitures.forEach(f => {
         // create a dot for every furniture item
@@ -15,8 +20,8 @@ function renderFurnitureHotspots(showroom) {
                     "y": 1
                 }
          */
-        dot.style.left = `${f.position.x * 100}%`;
-        dot.style.top  = `${f.position.y * 100}%`;
+        dot.style.left = `${(f.position.x * 100)/rect.width}%`;
+        dot.style.top  = `${(f.position.y * 100)/rect.width}%`;
 
         // store furniture id
         dot.dataset.id = f.ID
