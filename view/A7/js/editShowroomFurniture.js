@@ -1,4 +1,5 @@
 let param1="showroomId"
+let currentImage = null;
 
 
 // url param reader
@@ -17,133 +18,133 @@ function GetURLParameter(sParam){
     }
 }
 
-function getFurniture(arr){
-    console.log(arr);
+// function getFurniture(arr){
+//     console.log(arr);
 
-    let furnitureHTML = '';
-    let draggableFurnitureHTML = '';
-    for (let i = 0; i < arr.length; i++) {
-        furnitureHTML += `
-        <div class="furniture-item">
-            <b>${arr[i].NAME}</b><br>
-            <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
-            <button class="btn-delete btn" style="width:100%;" data-id="${arr[i].ID}"><i class="fas fa-trash"></i> Delete</button>
-        </div>
-            `
+//     let furnitureHTML = '';
+//     // let draggableFurnitureHTML = '';
+//     for (let i = 0; i < arr.length; i++) {
+//         furnitureHTML += `
+//         <div class="furniture-item">
+//             <b>${arr[i].NAME}</b><br>
+//             <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
+//             <button class="btn-delete btn" style="width:100%;" data-id="${arr[i].ID}"><i class="fas fa-trash"></i> Delete</button>
+//         </div>
+//             `
 
-        draggableFurnitureHTML += `
-        <div id="drag-${i}" class="draggable">
-            <div id="drag-${i}-header" class="drag-header">
-                <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
-            </div>
-        </div>
-        `;
+//         // draggableFurnitureHTML += `
+//         // <div id="drag-${i}" class="draggable">
+//         //     <div id="drag-${i}-header" class="drag-header">
+//         //         <img src="${arr[i].IMAGEURL}" alt="${arr[i].NAME}"><br>
+//         //     </div>
+//         // </div>
+//         // `;
 
-    }
+//     }
 
 
-    furnitureHTML += `
-        <div class="furniture-item add-furniture" style="background-color: transparent;">
-            <button class="popup-btn"><i class="fas fa-plus-circle"></i></button>
-        </div>
+//     furnitureHTML += `
+//         <div class="furniture-item add-furniture" style="background-color: transparent;">
+//             <button class="popup-btn"><i class="fas fa-plus-circle"></i></button>
+//         </div>
         
-    `
+//     `
     
     
-    document.getElementById('furniture-list').innerHTML = furnitureHTML;
-    const showroom = document.getElementById('showroom');
-    showroom.innerHTML += draggableFurnitureHTML;
+//     document.getElementById('furniture-list').innerHTML = furnitureHTML;
+//     // const showroom = document.getElementById('showroom');
+//     // showroom.innerHTML += draggableFurnitureHTML;
 
-    // Wait for DOM to render
-    requestAnimationFrame(() => {
-        const draggables = document.querySelectorAll('#showroom .draggable');
-        draggables.forEach(div => dragElement(div));
-    });
-
-
+//     // // Wait for DOM to render
+//     // requestAnimationFrame(() => {
+//     //     const draggables = document.querySelectorAll('#showroom .draggable');
+//     //     draggables.forEach(div => dragElement(div));
+//     // });
 
 
-} 
+
+
+// } 
 
 /// no you cannot add a kit kat to the showroom.
-function add(furnitureName){
-    let staff = JSON.parse(sessionStorage.getItem("staff"))
-    const data = {
-        staffId: parseInt(staff.id),
-        furnitureName: furnitureName
-    }
+// function add(furnitureName){
+//     let staff = JSON.parse(sessionStorage.getItem("staff"))
+//     const data = {
+//         staffId: parseInt(staff.id),
+//         furnitureName: furnitureName
+//     }
 
-    fetch(`/api/addShowroomFurniture/${GetURLParameter(param1)}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        location.reload();
-        return response.json();
-    }).catch(function(error) {
-        console.log(error);
-    });
-}
+//     fetch(`/api/addShowroomFurniture/${GetURLParameter(param1)}`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(data)
+//     }).then(function (response) {
+//         location.reload();
+//         return response.json();
+//     }).catch(function(error) {
+//         console.log(error);
+//     });
+// }
 
-function del(id){
-    let staff = JSON.parse(sessionStorage.getItem("staff"))
-    const data = {
-        staffId: parseInt(staff.id),
-        furnitureId: id
-    }
+// function del(id){
+//     let staff = JSON.parse(sessionStorage.getItem("staff"))
+//     const data = {
+//         staffId: parseInt(staff.id),
+//         furnitureId: id
+//     }
 
-    fetch(`/api/delShowroomFurniture/${GetURLParameter(param1)}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        location.reload();
-        return response.json();
-    }).catch(function(error) {
-        console.log(error);
-    });
-}
+//     fetch(`/api/delShowroomFurniture/${GetURLParameter(param1)}`, {
+//         method: "DELETE",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(data)
+//     }).then(function (response) {
+//         location.reload();
+//         return response.json();
+//     }).catch(function(error) {
+//         console.log(error);
+//     });
+// }
 
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
 //Make the DIV element draggagle:
-function dragElement(elmnt) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+// function dragElement(elmnt) {
+//     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    // Select the header inside this div
-    const header = elmnt.querySelector(".draggableDivheader"); 
-    if (header) {
-        header.onmousedown = dragMouseDown;
-    } else {
-        elmnt.onmousedown = dragMouseDown;
-    }
+//     // Select the header inside this div
+//     const header = elmnt.querySelector(".draggableDivheader"); 
+//     if (header) {
+//         header.onmousedown = dragMouseDown;
+//     } else {
+//         elmnt.onmousedown = dragMouseDown;
+//     }
 
-    function dragMouseDown(e) {
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-    }
+//     function dragMouseDown(e) {
+//         e.preventDefault();
+//         pos3 = e.clientX;
+//         pos4 = e.clientY;
+//         document.onmouseup = closeDragElement;
+//         document.onmousemove = elementDrag;
+//     }
 
-    function elementDrag(e) {
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-    }
+//     function elementDrag(e) {
+//         e.preventDefault();
+//         pos1 = pos3 - e.clientX;
+//         pos2 = pos4 - e.clientY;
+//         pos3 = e.clientX;
+//         pos4 = e.clientY;
+//         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+//         elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+//     }
 
-    function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-}
+//     function closeDragElement() {
+//         document.onmouseup = null;
+//         document.onmousemove = null;
+//     }
+// }
 
 
 
@@ -169,20 +170,53 @@ window.onclick = function(event) {
 // });
 
 
+
+
+
+
+
+
+
+const canvas = document.getElementById("showroom-canvas");
+const ctx = canvas.getContext("2d");
+
+function setShowroomImage(src) {
+  const img = new Image();
+  img.src = src;
+
+  img.onload = () => {
+    // Match canvas resolution to image
+    currentImage = img;              
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    // Draw image
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+  };
+}
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     fetch(`/api/getShowroomById/${GetURLParameter(param1)}`, {
         method: 'GET',
     })
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        getFurniture(data.furniture)
+        // getFurniture(data.furniture)
         const img = document.getElementById("showroom-img");
 
-        img.src = `${data.showroom.cover_image_url}`;
-        img.alt = data.showroom.cover_image_url;
-
+        // img.src = `${data.showroom.cover_image_url}`;
+        // img.alt = data.showroom.cover_image_url;
+        setShowroomImage(`${data.showroom.cover_image_url}`);
         
     })
     .catch(err => {
@@ -216,3 +250,45 @@ document.addEventListener("click", function(e) {
     }
 });
 
+
+
+
+
+
+
+
+
+
+
+const points = [];
+
+canvas.addEventListener("click", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+  const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+  points.push({ x, y });
+  redraw();
+});
+
+    function redraw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (currentImage instanceof HTMLImageElement) {
+        ctx.drawImage(currentImage, 0, 0);
+        }
+
+        points.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+
+            ctx.fillStyle = "#ffffffff";
+            ctx.fill();
+
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#ff4d4d";
+            ctx.stroke();
+        }
+    );
+
+}

@@ -3,6 +3,11 @@
     width: 100%;
     border-radius: 1rem;
 }
+.showroom canvas {
+  width: 100%;
+  border-radius: 1rem;
+  display: block;
+}
 
 /* furniture row display */
 .furniture{
