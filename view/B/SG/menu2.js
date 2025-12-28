@@ -91,7 +91,10 @@ document.write('\
                         <a href="/B/' + countryPrefix + '/virtualStore.html">Virtual Store</a>\
                     </li>\
                     <li>\
-                        <a href = "/B/' + countryPrefix + '/promotion.html">Showroom</a>\
+                        <a href = "/B/' + countryPrefix + '/promotion.html">Promotion</a>\
+                    </li>\
+                    <li>\
+                        <a id = "retailProductLink" href = "/B/' + countryPrefix + '/retailProductsCategory.html">Retail</a>\
                     </li>\
                     <li class="dropdown">\
                         <a class="dropdown-toggle" href="#">\
@@ -106,7 +109,6 @@ document.write('\
                             <li><a href="/B/' + countryPrefix + '/furnitureCategory.html?cat=Lightings"><i class="icon icon-map-marker"></i> Lightings</a></li>\
                             <li><a href="/B/' + countryPrefix + '/furnitureCategory.html?cat=Study"><i class="icon icon-map-marker"></i> Study</a></li>\
                             <li><a href="/B/' + countryPrefix + '/furnitureCategory.html?cat=Children"><i class="icon icon-map-marker"></i> Children</a></li>\
-                            <li><a id="retailProductLink"><i class="icon icon-coffee"></i> Retail Products</a></li>\
                         </ul>\
                     </li>\
                 </ul>\
@@ -115,4 +117,9 @@ document.write('\
     </div>\
 </header>');
 
-// 2. Rename “ALL DEPARTMENTS” menu to Furniture. (DONE)
+// 2. Rename “ALL DEPARTMENTS” menu to Furniture. (DONE)\
+
+// 3. Make the “Retail Products” item a new Menu and name it Retail (DONE)
+/*
+<li><a id="retailProductLink"><i class="icon icon-coffee"></i> Retail Products</a></li>\
+*/
