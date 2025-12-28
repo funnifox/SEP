@@ -90,6 +90,9 @@ document.write('\
                     <li>\
                         <a href="/B/' + countryPrefix + '/virtualStore.html">Virtual Store</a>\
                     </li>\
+                    <li>\
+                        <a href = "/B/' + countryPrefix + '/promotion.html">Showroom</a>\
+                    </li>\
                     <li class="dropdown">\
                         <a class="dropdown-toggle" href="#">\
                             Furniture <i class="icon icon-angle-down"></i>\
