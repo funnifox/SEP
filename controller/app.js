@@ -23,7 +23,8 @@ app.use(require('./storagebinentityDB.js'));
 app.use(require('./showroomCategoryDB.js'));
 app.use(require('./showroomPublicDB.js'))
 
-
+// Promotion
+app.use(require('./promotionDB.js'));
 
 // for image upload url handling
 app.use(express.static(path.join(__dirname, "view")));
