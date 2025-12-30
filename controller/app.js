@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+app.use(express.json());
 var path = require("path");
 
 app.use(express.static('view'));
