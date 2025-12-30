@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 260px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.toast.success {
+    background-color: #2ecc71; /* green */
+}
+
+.toast.error {
+    background-color: #e74c3c; /* red */
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.hidden {
+    display: none;
+}

@@ -71,6 +71,7 @@
                 });
             }, false);
 
+            // Reference area to add to cart 
             function addToCart(sku,id,price,name,imageURL) {
                 fetch(new Request('/api/getItemQuantity?sku=' + sku + '&storeId=-1',
                 {
