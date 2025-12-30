@@ -60,6 +60,16 @@ function showFurniturePanel(event, furnitureId) {
                 )
             }
 
+            // Button for Buy Now page 
+            buyNowButton.onclick = null;
+            buyNowButton.onclick = (e) => {
+                addToCart(
+                    f.SKU, f.ID, f.PRICE, f.NAME, f.IMAGEURL
+                )
+                
+                window.location.href = `/B/SG/shoppingCart.html`
+            }
+
             moreDetailButton.addEventListener('click', () => {
                 window.location.href = `/B/SG/furnitureProductDetails.html?sku=${f.SKU}`
             })
