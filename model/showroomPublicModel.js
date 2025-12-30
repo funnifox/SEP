@@ -268,11 +268,13 @@ var showroomPublicDB = {
                     SELECT
                         sf.furniture_id,
                         f.IMAGEURL,
-                        i.NAME, i.CATEGORY, i.DESCRIPTION, i.HEIGHT, i.WIDTH, i._LENGTH, i.SKU
+                        i.ID, i.NAME, i.CATEGORY, i.DESCRIPTION, i.HEIGHT, i.WIDTH, i._LENGTH, i.SKU,
+                        ce.RETAILPRICE AS PRICE
 
                     FROM showroom_furniture sf
                     LEFT JOIN furnitureentity f ON sf.furniture_id = f.ID
                     LEFT JOIN itementity i ON sf.furniture_id = i.ID
+                    LEFT JOIN item_countryentity ce ON sf.furniture_id = ce.ITEM_ID
                     WHERE sf.furniture_id = ? 
                 `
                 conn.query(sql, [id], (err, results) => {
