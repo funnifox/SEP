@@ -134,15 +134,33 @@ app.post('/api/filterShowroom', express.json(), (req, res) => {
 
         console.log('REQ BODY:', req.body);
 
+        /* SAMPLE INPUT
+`        {
+            "name": "BRUSALI" ,
+            "categories": ["Beds & Mattresses"],
+            
+            "widthMin": 10,
+            "widthMax": 300,
+            "lengthMin": 10,
+            "lengthMax": 300,
+            "heightMin": 10,
+            "heightMax": 300
+        }`
+        */
+
         const filters = {
             name: req.body.name || null,
             categories: req.body.categories || [],
-            length: req.body.length || null,
-            width: req.body.width || null,
-            height: req.body.height || null
+
+            lengthMin: req.body.lengthMin !== undefined ? req.body.lengthMin : null,
+            lengthMax: req.body.lengthMax !== undefined ? req.body.lengthMax : null,
+
+            widthMin: req.body.widthMin !== undefined ? req.body.widthMin : null,
+            widthMax: req.body.widthMax !== undefined ? req.body.widthMax : null,
+
+            heightMin: req.body.heightMin !== undefined ? req.body.heightMin : null,
+            heightMax: req.body.heightMax !== undefined ? req.body.heightMax : null
         };
-
-
 
         showroomPublic.filter(filters)
             .then(results => {

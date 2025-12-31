@@ -113,9 +113,19 @@ function collectFilters() {
 
         categories: getSelectedCategories(),
 
+        // dimensions
+        /* old code
         length: Number(document.getElementById('lengthInput')?.value) || null,
         width: Number(document.getElementById('widthInput')?.value) || null,
         height: Number(document.getElementById('heightInput')?.value) || null
+        */
+
+        lengthMin: Number(document.getElementById('lengthMinInput')?.value) || null,
+        lengthMax: Number(document.getElementById('lengthMaxInput')?.value) || null,
+        widthMin: Number(document.getElementById('widthMinInput')?.value) || null,
+        widthMax: Number(document.getElementById('widthMaxInput')?.value) || null,
+        heightMin: Number(document.getElementById('heightMinInput')?.value) || null,
+        heightMax: Number(document.getElementById('heightMaxInput')?.value) || null,
     };
 }
 

@@ -174,19 +174,31 @@ var showroomPublicDB = {
                 }
 
                 // Dimension filters 
-                if (filters.length) {
+                if (filters.lengthMin != null) {
                     sql += ` AND f._LENGTH >= ?`;
-                    params.push(filters.length);
+                    params.push(filters.lengthMin);
+                }
+                if (filters.lengthMax != null) {
+                    sql += ` AND f._LENGTH <= ?`;
+                    params.push(filters.lengthMax);
                 }
 
-                if (filters.width) {
+                if (filters.widthMin != null) {
                     sql += ` AND f.WIDTH >= ?`;
-                    params.push(filters.width);
+                    params.push(filters.widthMin);
+                }
+                if (filters.widthMax != null) {
+                    sql += ` AND f.WIDTH <= ?`;
+                    params.push(filters.widthMax)
                 }
 
-                if (filters.height) {
+                if (filters.heightMin != null) {
                     sql += ` AND f.HEIGHT >= ?`;
-                    params.push(filters.height);
+                    params.push(filters.heightMin);
+                }
+                if (filters.heightMax != null) {
+                    sql += ` AND f.HEIGHT <= ?`;
+                    params.push(filters.heightMax);
                 }
 
                 // Furniture Name Filter
