@@ -315,3 +315,4 @@ document.write('\
         <ul class="nav navbar-nav side-nav" id="roleUl"></ul>\
     </div>\
 </nav>');
+
