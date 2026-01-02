@@ -175,3 +175,17 @@
 .apply-btn:hover {
     background: #0056b3;
 }
+
+.clear-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #fb9b00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.clear-btn:hover {
+    background: #ff6200;
+}

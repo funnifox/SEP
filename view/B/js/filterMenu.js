@@ -6,6 +6,9 @@ const filterBtn = document.querySelector(".filter-icon");
 const filterPopup = document.getElementById("filter-popup");
 const closeFilter = document.getElementById("close-filter");
 
+const clearBtn = document.getElementById("clear-filter");
+clearBtn.addEventListener("click", clearFilter);
+
 // Open filter panel 
 filterBtn.addEventListener("click", () => {
     filterPopup.classList.add("active"); 
@@ -42,4 +45,18 @@ function loadFilterPanel() {
             console.error("Failed to load furniture categories:", err);
             furnitureList.innerHTML = "<p>Unable to load categories.</p>";
         });
+}
+
+// Clear filter
+function clearFilter() {
+    const filterForm = document.querySelector(".filter-form");
+
+    filterForm.querySelectorAll("input[type='text'], input[type='number']").forEach(input => {
+        input.value = "";
+    });
+    filterForm.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    loadAllShowrooms();
 }
