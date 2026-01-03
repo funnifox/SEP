@@ -84,7 +84,7 @@ function renderProducts(products) {
             <span class="product-original">$${p.price}</span>
           </div>
           <button class="product-btn"
-            onclick="location.href='productDetail.html?id=${p.id}'">
+            onclick="location.href='furnitureProductDetails.html?sku=${p.sku}'">
             Shop Now
           </button>
         </div>
@@ -118,7 +118,7 @@ function renderCarousel(products) {
               <span class="original-price">$${p.price}</span>
             </div>
             <button class="carousel-btn"
-              onclick="location.href='productDetail.html?id=${p.id}'">
+              onclick="location.href='furnitureProductDetails.html?sku=${p.sku}'">
               Shop Now
             </button>
           </div>
