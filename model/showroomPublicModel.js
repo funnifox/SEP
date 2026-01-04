@@ -308,9 +308,10 @@ var showroomPublicDB = {
                 // Get furnitures that uses the same category in the showroom
                 // but NOT already in the showroom
                 let sql = `
-                    SELECT DISTINCT i.*, f.IMAGEURL
+                    SELECT DISTINCT i.*, f.IMAGEURL, ic.RETAILPRICE, ic.ITEM_ID
                     FROM itementity i
                     JOIN furnitureentity f ON i.ID = f.ID
+                    JOIN item_countryentity ic ON f.ID = ic.ITEM_ID
 
 
 
@@ -330,7 +331,7 @@ var showroomPublicDB = {
                         WHERE showroom_id = ?
                     )
                     ORDER BY RAND()
-                    LIMIT 6;
+                    LIMIT 8;
                 `
                 conn.query(sql, [showroomId, showroomId], (err, results) => {
                     conn.end();

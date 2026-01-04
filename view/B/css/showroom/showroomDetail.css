@@ -342,3 +342,86 @@
     color: #666;
     margin: 0;
 }
+
+/* other furniture */
+/* Other furniture cards */
+.other-furnitures .furniture-card {
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.other-furnitures .furniture-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-medium);
+}
+
+.other-furnitures .furniture-image {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #eee;
+}
+
+.other-furnitures .furniture-content {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.other-furnitures .furniture-category {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.other-furnitures .furniture-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.other-furnitures .furniture-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    flex-grow: 1;
+}
+
+.other-furnitures .furniture-dimensions {
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.other-furnitures .furniture-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.other-furnitures .furniture-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.other-furnitures .furniture-btn:hover {
+    background: var(--primary-dark);
+}
