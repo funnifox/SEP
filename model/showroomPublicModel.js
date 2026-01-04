@@ -160,9 +160,11 @@ var showroomPublicDB = {
                 let sql = `
                     SELECT s.*
                     FROM showroom s
-                    JOIN showroom_furniture sf ON sf.showroom_id = s.id
-                    JOIN itementity f ON sf.furniture_id = f.ID
-                    WHERE 1=1
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM showroom_furniture sf
+                        JOIN itementity f ON sf.furniture_id = f.ID
+                        WHERE sf.showroom_id = s.id
                 `;
 
                 const params = [];
@@ -174,19 +176,31 @@ var showroomPublicDB = {
                 }
 
                 // Dimension filters 
-                if (filters.length) {
+                if (filters.lengthMin != null) {
                     sql += ` AND f._LENGTH >= ?`;
-                    params.push(filters.length);
+                    params.push(filters.lengthMin);
+                }
+                if (filters.lengthMax != null) {
+                    sql += ` AND f._LENGTH <= ?`;
+                    params.push(filters.lengthMax);
                 }
 
-                if (filters.width) {
+                if (filters.widthMin != null) {
                     sql += ` AND f.WIDTH >= ?`;
-                    params.push(filters.width);
+                    params.push(filters.widthMin);
+                }
+                if (filters.widthMax != null) {
+                    sql += ` AND f.WIDTH <= ?`;
+                    params.push(filters.widthMax)
                 }
 
-                if (filters.height) {
+                if (filters.heightMin != null) {
                     sql += ` AND f.HEIGHT >= ?`;
-                    params.push(filters.height);
+                    params.push(filters.heightMin);
+                }
+                if (filters.heightMax != null) {
+                    sql += ` AND f.HEIGHT <= ?`;
+                    params.push(filters.heightMax);
                 }
 
                 // Furniture Name Filter
@@ -195,13 +209,7 @@ var showroomPublicDB = {
                     params.push(`%${filters.name}%`);
                 }
 
-                // Group by showroom and ensure all selected categories exist
-                sql += ` GROUP BY s.id`;
-
-                if (filters.categories && filters.categories.length > 0) {
-                    sql += ` HAVING COUNT(DISTINCT f.CATEGORY) = ?`;
-                    params.push(filters.categories.length);
-                }
+                sql += `)`;
 
                 console.log('FINAL SQL:', sql);
                 console.log('PARAMS:', params);
@@ -268,11 +276,13 @@ var showroomPublicDB = {
                     SELECT
                         sf.furniture_id,
                         f.IMAGEURL,
-                        i.NAME, i.CATEGORY, i.DESCRIPTION, i.HEIGHT, i.WIDTH, i._LENGTH, i.SKU
+                        i.ID, i.NAME, i.CATEGORY, i.DESCRIPTION, i.HEIGHT, i.WIDTH, i._LENGTH, i.SKU,
+                        ce.RETAILPRICE AS PRICE
 
                     FROM showroom_furniture sf
                     LEFT JOIN furnitureentity f ON sf.furniture_id = f.ID
                     LEFT JOIN itementity i ON sf.furniture_id = i.ID
+                    LEFT JOIN item_countryentity ce ON sf.furniture_id = ce.ITEM_ID
                     WHERE sf.furniture_id = ? 
                 `
                 conn.query(sql, [id], (err, results) => {

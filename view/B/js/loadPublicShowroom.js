@@ -109,13 +109,24 @@ function filterShowrooms(filters) {
 function collectFilters() {
     return {
         // We use ID to detect which inputs are filled in for the filtering condition
-        name: document.getElementById('searchInput').value.trim() || null,
+        name: document.getElementById('furnitureNameInput').value.trim() || null,
 
+        
         categories: getSelectedCategories(),
 
+        // dimensions
+        /* old code
         length: Number(document.getElementById('lengthInput')?.value) || null,
         width: Number(document.getElementById('widthInput')?.value) || null,
         height: Number(document.getElementById('heightInput')?.value) || null
+        */
+
+        lengthMin: Number(document.getElementById('lengthMinInput')?.value) || null,
+        lengthMax: Number(document.getElementById('lengthMaxInput')?.value) || null,
+        widthMin: Number(document.getElementById('widthMinInput')?.value) || null,
+        widthMax: Number(document.getElementById('widthMaxInput')?.value) || null,
+        heightMin: Number(document.getElementById('heightMinInput')?.value) || null,
+        heightMax: Number(document.getElementById('heightMaxInput')?.value) || null,
     };
 }
 

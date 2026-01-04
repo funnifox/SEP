@@ -109,10 +109,36 @@
 
                             <!-- Dimension -->
                             <div class = "dimensions">
-                                <h6>Dimensions</h6>
-                                <input id = "lengthInput" type="text" placeholder="Length (cm)">
+                                <h6>Dimensions (cm)</h6>
+
+                                <!-- <input id = "lengthInput" type="text" placeholder="Length (cm)">
                                 <input id = "widthInput" type="text" placeholder="Width (cm)">
-                                <input id = "heightInput" type="text" placeholder="Height (cm)">
+                                <input id = "heightInput" type="text" placeholder="Height (cm)"> -->
+
+                                <!-- new dimensions field -->
+                                <!-- length -->
+                                <div class = "dimension-row">
+                                    <span class = "dimension-label">Length</span>
+                                    <input id = "lengthMinInput" type = "number" placeholder = "Min">
+                                    <span class = "dash">-</span>
+                                    <input id = "lengthMaxInput" type = "number" placeholder = "Max">
+                                </div>
+
+                                <!-- width -->
+                                <div class="dimension-row">
+                                    <span class="dimension-label">Width</span>
+                                    <input id="widthMinInput" type="number" placeholder="Min">
+                                    <span class="dash">–</span>
+                                    <input id="widthMaxInput" type="number" placeholder="Max">
+                                </div>
+
+                                <!-- height -->
+                                <div class="dimension-row">
+                                    <span class="dimension-label">Height</span>
+                                    <input id="heightMinInput" type="number" placeholder="Min">
+                                    <span class="dash">–</span>
+                                    <input id="heightMaxInput" type="number" placeholder="Max">
+                                </div>
                             </div>
 
                             <!-- Furniture type -->
@@ -127,6 +153,7 @@
 
                     <!-- Dont use submit, it refreshes the page instead of filtering -->
                     <button id = "apply-filter" type="button" class="apply-btn">Apply Filters</button>
+                    <button id = "clear-filter" type = "button" class = "clear-btn">Clear Filter</button>
                 </form>
             </div>
         </div>

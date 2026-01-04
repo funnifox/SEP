@@ -15,10 +15,7 @@ function renderFurnitureHotspots(showroom) {
          * FOLLOW OUTPUT. position.x or position.y
          * We convert to percentage positioning, so we x by 100%
          * 
-                "position": {
-                    "x": 1,
-                    "y": 1
-                }
+                {"x": 779.836219234275, "y": 582.5728585915099}
          */
         const OFFSET_X_PERCENT = 7; // right
         const OFFSET_Y_PERCENT = 7; // down

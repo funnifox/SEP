@@ -42,15 +42,33 @@ function showFurniturePanel(event, furnitureId) {
 
             // POSITIONING LOGIC
             // Use clientX and clientY for 'fixed' positioning
-            // add 20px offset so the panel doesn't cover the dot itself
-            panel.style.left = (event.clientX + 20) + "px"; 
-            panel.style.top = (event.clientY - 50) + "px";
+            // add 10px offset so the panel doesn't cover the dot itself
+            panel.style.left = (event.clientX + 10) + "px"; 
+            panel.style.top = (event.clientY + 10) + "px";
 
 
             // Buttons for buy now and add to cart
             addToCartButton = document.getElementById("add-to-cart-btn");
             buyNowButton = document.getElementById("buy-now-btn");
             moreDetailButton = document.getElementById("more-details-btn");
+
+            // Add to cart button
+            addToCartButton.onclick = null;
+            addToCartButton.onclick = (e) => {
+                addToCart(
+                    f.SKU, f.ID, f.PRICE, f.NAME, f.IMAGEURL
+                )
+            }
+
+            // Button for Buy Now page 
+            buyNowButton.onclick = null;
+            buyNowButton.onclick = (e) => {
+                addToCart(
+                    f.SKU, f.ID, f.PRICE, f.NAME, f.IMAGEURL
+                )
+                
+                window.location.href = `/B/SG/shoppingCart.html`
+            }
 
             moreDetailButton.addEventListener('click', () => {
                 window.location.href = `/B/SG/furnitureProductDetails.html?sku=${f.SKU}`
@@ -62,3 +80,4 @@ function showFurniturePanel(event, furnitureId) {
             console.error("Error loading furniture panel:", err);
         });
 }
+

@@ -17,14 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const div = document.createElement('div');
                 div.className = `carousel-item ${activeClass}`;
                 div.innerHTML = `
-                    <img src="${item.cover_image_url}" class="d-block w-100" alt="${item.name}" style="height:60vh; object-fit:cover;">
-                    <div class="carousel-caption">
-                        <div class = "caption-box">
-                            <h5>${item.name}</h5>
-                            <small>Category: ${item.category_name}</small>
-                            <p>${item.description}</p>
+                    <a href = "/B/SG/showroomDetail.html?id=${item.id}" class = "carousel-link">
+                        <img src="${item.cover_image_url}" class="d-block w-100" alt="${item.name}" style="height:60vh; object-fit:cover;">
+                        <div class="carousel-caption">
+                            <div class = "caption-box">
+                                <h5>${item.name}</h5>
+                                <small>Category: ${item.category_name}</small>
+                                <p>${item.description}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 `;
                 carouselInner.appendChild(div);
 

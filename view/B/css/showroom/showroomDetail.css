@@ -154,8 +154,8 @@
 /* ===== Furniture Dot ===== */
 .furniture-dot {
     position: absolute; /* Allow positioning for the dots all over the image*/
-    width: 14px;
-    height: 14px;
+    width: 8px;
+    height: 8px;
     background-color: #eb1b1e;
     border-radius: 50%;
 
@@ -166,6 +166,8 @@
     z-index: 5;                  /* place dots above the image */
     box-shadow: 0 0 0 2px #fff;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    pointer-events: auto;
 }
 
 /* ===== Hover Effect ===== */
