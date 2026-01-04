@@ -292,6 +292,53 @@ var showroomPublicDB = {
                 });
             })
         })
+    },
+
+    showOtherFurnitureByCategory: function(showroomId) {
+        return new Promise((resolve, reject) => {
+            const conn = db.getConnection();
+            conn.connect(err => {
+                if (err) {
+                    conn.end();
+                    return reject(err);
+                }
+
+                console.log('Showroom id:', showroomId);
+
+                // Get furnitures that uses the same category in the showroom
+                // but NOT already in the showroom
+                let sql = `
+                    SELECT DISTINCT i.*, f.IMAGEURL
+                    FROM itementity i
+                    JOIN furnitureentity f ON i.ID = f.ID
+
+
+
+                    WHERE i.CATEGORY IN (
+                        SELECT DISTINCT i2.CATEGORY
+                        FROM showroom_furniture sf
+                        JOIN itementity i2 ON sf.furniture_id = i2.ID
+                        WHERE sf.showroom_id = ?
+                    )
+
+
+
+                    
+                    AND i.ID NOT IN (
+                        SELECT furniture_id 
+                        FROM showroom_furniture
+                        WHERE showroom_id = ?
+                    )
+                    ORDER BY RAND()
+                    LIMIT 6;
+                `
+                conn.query(sql, [showroomId, showroomId], (err, results) => {
+                    conn.end();
+                    if (err) return reject(err);
+                    resolve(results);
+                })
+            })
+        })
     }
     
 }

@@ -320,3 +320,25 @@
 .other-showroom-name {
     color: rgb(111, 111, 111);
 }
+
+.other-showrooms-section {
+    padding: 40px 0;
+    border-top: 1px solid #eee;
+}
+
+.other-showrooms-header {
+    margin-bottom: 24px;
+    padding: 0 20px;
+}
+
+.other-showrooms-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.other-showrooms-header p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
