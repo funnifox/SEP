@@ -311,20 +311,14 @@ var showroomPublicDB = {
                     SELECT DISTINCT i.*, f.IMAGEURL, ic.RETAILPRICE, ic.ITEM_ID
                     FROM itementity i
                     JOIN furnitureentity f ON i.ID = f.ID
-                    JOIN item_countryentity ic ON f.ID = ic.ITEM_ID
-
-
-
+                    JOIN item_countryentity ic 
+                        ON f.ID = ic.ITEM_ID AND ic.NAME = 'United States'
                     WHERE i.CATEGORY IN (
                         SELECT DISTINCT i2.CATEGORY
                         FROM showroom_furniture sf
                         JOIN itementity i2 ON sf.furniture_id = i2.ID
                         WHERE sf.showroom_id = ?
                     )
-
-
-
-                    
                     AND i.ID NOT IN (
                         SELECT furniture_id 
                         FROM showroom_furniture

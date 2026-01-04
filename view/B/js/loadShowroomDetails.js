@@ -47,7 +47,13 @@ function recommendOtherFurniture(furnitures) {
                     <div class="furniture-category">${f.CATEGORY}</div>
                     <div class="furniture-name">${f.NAME}</div>
                     <div class="furniture-description">${f.DESCRIPTION}</div>
-                    <div class="furniture-dimensions">L:${f._LENGTH} H:${f.HEIGHT} W:${f.WIDTH}</div>
+
+                    <div class = "furniture-meta">
+                        <span id="panel-length">L: ${f._LENGTH} cm</span>
+                        <span id="panel-height">H: ${f.HEIGHT} cm</span>
+                        <span id="panel-width">W: ${f.WIDTH} cm</span>
+                    </div>
+
                     <div class="furniture-price">$${f.RETAILPRICE}</div>
                     <button class="furniture-btn" onclick="location.href='furnitureProductDetails.html?sku=${f.SKU}'">Shop Now</button>
                 </div>
