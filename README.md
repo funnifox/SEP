@@ -212,7 +212,7 @@ INSERT INTO showroom_furniture (showroom_id, furniture_id, position_json) VALUES
 
 ```
 
-## SQL for Showroom Furniture
+## SQL for Promotion Furniture
 ```sql
 ALTER TABLE promotionentity
 MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT;
