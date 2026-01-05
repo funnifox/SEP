@@ -308,11 +308,11 @@ var showroomPublicDB = {
                 // Get furnitures that uses the same category in the showroom
                 // but NOT already in the showroom
                 let sql = `
-                    SELECT DISTINCT i.*, f.IMAGEURL, ic.RETAILPRICE, ic.ITEM_ID
+                    SELECT DISTINCT i.*, f.IMAGEURL, ic.RETAILPRICE
                     FROM itementity i
                     JOIN furnitureentity f ON i.ID = f.ID
-                    JOIN item_countryentity ic 
-                        ON f.ID = ic.ITEM_ID AND ic.NAME = 'United States'
+                    JOIN item_countryentity ic ON f.ID = ic.ITEM_ID
+                    JOIN countryentity c ON ic.COUNTRY_ID = c.ID
                     WHERE i.CATEGORY IN (
                         SELECT DISTINCT i2.CATEGORY
                         FROM showroom_furniture sf
@@ -324,6 +324,7 @@ var showroomPublicDB = {
                         FROM showroom_furniture
                         WHERE showroom_id = ?
                     )
+                    AND c.NAME = 'United States'
                     ORDER BY RAND()
                     LIMIT 8;
                 `
