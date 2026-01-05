@@ -157,3 +157,32 @@
 #more-details-btn:active {
     transform: scale(0.98);
 }
+
+.panel-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+#panel-image {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+
+.panel-price-overlay {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+
+    padding: 4px 8px;
+    border-radius: 6px;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    pointer-events: none; 
+}

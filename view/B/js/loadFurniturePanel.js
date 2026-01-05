@@ -31,6 +31,14 @@ function showFurniturePanel(event, furnitureId) {
             const f = res[0];
             const panel = document.getElementById("furniture-panel");
 
+            // Currency (Convert price to SGD)
+            const priceEl = document.getElementById("panel-price");
+            priceEl.textContent = new Intl.NumberFormat("en-SG", {
+                style: "currency",
+                currency: "SGD",
+                minimumFractionDigits: 2
+            }).format(f.PRICE);
+
             // Fill data
             document.getElementById("panel-image").src = f.IMAGEURL;
             document.getElementById("panel-name").textContent = f.NAME;

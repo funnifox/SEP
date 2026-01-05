@@ -18,7 +18,50 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => {
             console.error("Error loading showroom:", err);
         });
+
+    fetch(`/api/getOtherFurniture?id=${showroomId}`)
+        .then(res => res.json())
+        .then(result => {
+            if (!result.success) {
+                throw new Error("Failed to load recommended furniture");
+            }
+            recommendOtherFurniture(result.data);
+        })
+        .catch(err => {
+            console.error("Error loading furniture recommendations in showroom:", err);
+        });
 });
+
+function recommendOtherFurniture(furnitures) {
+    const container = document.getElementById("other-furnitures");
+    container.innerHTML = ""; 
+
+    furnitures.forEach(f => {
+        const col = document.createElement("div");
+        col.className = "col-md-4 col-lg-3 mb-4"; // bootstrap column
+
+        col.innerHTML = `
+            <div class="furniture-card">
+                <div class="furniture-image" style="background-image:url('${f.IMAGEURL}')"></div>
+                <div class="furniture-content">
+                    <div class="furniture-category">${f.CATEGORY}</div>
+                    <div class="furniture-name">${f.NAME}</div>
+                    <div class="furniture-description">${f.DESCRIPTION}</div>
+
+                    <div class = "furniture-meta">
+                        <span id="panel-length">L: ${f._LENGTH} cm</span>
+                        <span id="panel-height">H: ${f.HEIGHT} cm</span>
+                        <span id="panel-width">W: ${f.WIDTH} cm</span>
+                    </div>
+
+                    <div class="furniture-price">$${f.RETAILPRICE}</div>
+                    <button class="furniture-btn" onclick="location.href='furnitureProductDetails.html?sku=${f.SKU}'">Shop Now</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(col);
+    });
+}
 
 function renderShowroom(showroom) {
     // Showroom name

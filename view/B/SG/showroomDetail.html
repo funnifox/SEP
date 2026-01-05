@@ -80,9 +80,14 @@
             <div id = "furniture-panel" class = "furniture-panel hidden">
                 <button class = "close-btn">&times;</button>
 
-                <img id="panel-image">
-                <h3 id="panel-name"></h3>
-                <p id="panel-category"></p>
+                <!-- Image and price tag -->
+                <div class="panel-image-wrapper">
+                    <img id="panel-image">
+                    <div id="panel-price" class="panel-price-overlay"></div>
+                </div>
+
+                <h3 id = "panel-name"></h3>
+                <p id = "panel-category"></p>
 
                 <div class="panel-meta">
                     <span id="panel-length"></span>
@@ -103,7 +108,29 @@
             </div>
 
             <!-- Other showrooms of that same category (LATER DO)-->
-            <div id = "other-showrooms" class = "other-showrooms"></div>
+            <div class = "other-showrooms-section">
+                <div class = "other-showrooms-header">
+                    <h2>Explore other showrooms</h2>
+                    <p>Get inspired by thoughtfully designed showrooms, curated to help you imagine your perfect home.</p>
+                </div>
+
+                <div id = "other-showrooms" class = "other-showrooms"></div>
+            </div>
+
+            <!-- Other furniture randomise that is the same for the categories of furniture -->
+            <div class = "other-showrooms-section">
+                <div class = "other-showrooms-header">
+                    <h2>Thoughtfully chosen furniture for your space</h2>
+                    <p>Explore furniture pieces curated to match this showroom and inspire your ideal home setup.</p>
+                </div>
+
+                <div>
+                    <div class = "container">
+                        <div id = "other-furnitures" class = "row other-furnitures"></div>
+                    </div> 
+                </div>
+
+            </div>
 
             <!-- Cart Status notification -->
             <div id = "toast" class = "status-toast hidden"></div>

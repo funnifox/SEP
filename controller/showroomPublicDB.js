@@ -130,6 +130,41 @@ app.get('/api/getFurnitureDetailById', function(req, res) {
         });
 })
 
+app.get('/api/getOtherFurniture', function(req, res) {
+    const showroomId = req.query.id;
+
+    if (!showroomId) {
+        return res.status(400).json({
+            success: false,
+            message: 'Showroom ID is required',
+        });
+    }
+
+    showroomPublic.showOtherFurnitureByCategory(showroomId) 
+        .then(results => {
+            if (!results || results.length === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'No other furniture found for this showroom',
+                    data: []
+                });
+            }
+
+            res.json({
+                success: true,
+                count: results.length,
+                data: results
+            })
+        })
+        .catch(err => {
+            console.error('Error fetching other furniture:', err);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to fetch other furniture',
+            });
+        });
+})
+
 app.post('/api/filterShowroom', express.json(), (req, res) => {
 
         console.log('REQ BODY:', req.body);
