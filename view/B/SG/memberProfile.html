@@ -48,6 +48,7 @@
                         document.getElementById("salesHistoryTab").innerHTML = '<h5 class="center">You do not have any sales history.</h5>';
                     }
                     else {
+                        console.log(boughtItem);
                         var htmlTxt = '';
                         var orderIdList = [];
                         var overallPrice = 0;
@@ -61,23 +62,46 @@
                         var temp;
                         var size = orderIdList.length;
                         //sort order ID in ascending order
-                        for (i = 0; i < size - 1; i++) {
-                            for (j = 0; j < size - i - 1; j++) {
-                                if (orderIdList[j] > orderIdList[j+1]) {
-                                    temp = orderIdList[j];
-                                    orderIdList[j] = orderIdList[j+1];
-                                    orderIdList[j+1] = temp;
-                                }
-                            }
-                        }
-                                         
-                            htmlTxt += '<h5>Order #' + (1) + '</h5>';
-                            var counter = 0;
-                            //get bought items by order ID
-                            for (j = 0; j < boughtItem.length; j++) {
+                        // for (i = 0; i < size - 1; i++) {
+                        //     for (j = 0; j < size - i - 1; j++) {
+                        //         if (orderIdList[j] > orderIdList[j+1]) {
+                        //             temp = orderIdList[j];
+                        //             orderIdList[j] = orderIdList[j+1];
+                        //             orderIdList[j+1] = temp;
+                        //         }
+                        //     }
+                        // }
+                        
+                        // sales history bugfix: javier
+                        // ==========================================================
+                        // replaced sorting code with built-in sort function
+                        orderIdList.sort((a, b) => a - b);
+
+
+                        // sales history bugfix: javier
+                        // ==========================================================
+                        // moving htmlTxt and counter inside for loop to allow more than 1 order to be displayed
+                        // htmlTxt += '<h5>Order #' + (1) + '</h5>';
                             
-                                if(boughtItem[j].id == orderIdList[0]) {
-                                    var item = boughtItem[j];
+                        
+                        // get bought items by order ID
+
+                            // sales history bugfix: javier
+                            // ==========================================================
+                            // changed boughtItem.length to orderIdList.length 
+                            for (j = 0; j < orderIdList.length; j++) {
+                                let counter = 0;
+                                htmlTxt += '<h5>Order #' + (j + 1) + '</h5>';
+                                
+
+                                // sales history bugfix: javier
+                                // ==========================================================
+                                // changed orderIdList[0] to orderIdList[j] (orderIdList[0] is hard coded)
+                                // wrapped if block with a for loop to get all items with the same order ID properly
+                                for (let k = 0; k < boughtItem.length; k++) {
+                                    if (boughtItem[k].id == orderIdList[j] && counter === 0) {
+                                        var item = boughtItem[k];
+
                                     //display top level info
                                     if(counter == 0) {
                                         let options = {
@@ -96,9 +120,6 @@
                                             <h6>Contact Number: ' + item.phone + '</h6>';
                                         counter++;
                                     }
-                                }
-                            }
-                            //display table info
                             htmlTxt += '\
                                 <div class="row">\
                                     <div class="col-md-12">\
@@ -117,51 +138,128 @@
                                                                 </tr>\
                                                             </thead>\
                                                             <tbody>';
-                            for (y = 0; y < boughtItem.length; y++) {
-                            
-                                if (boughtItem[y].id == orderIdList[0]) {
-                                    var product = boughtItem[y];
-                                    htmlTxt += '\
-                                        <tr class="cart_table_item">\
-                                            <td class="product-thumbnail">\
-                                                <a href="/B/' + countryPrefix + '/furnitureProductDetails.html?sku=' + product.sku + '"><img width="100" height="100" alt="" class="img-responsive" src="' + product.imageUrl + '"></a>\
+                                    // sales history bugfix: javier
+                                    // ==========================================================
+                                    // moved code.
+                                    
+                                    for (y = 0; y < boughtItem.length; y++) {
+                                        if (boughtItem[y].id == orderIdList[j]) {
+                                            var product = boughtItem[y];
+                                            htmlTxt += '\
+                                                <tr class="cart_table_item">\
+                                                    <td class="product-thumbnail">\
+                                                        <a href="/B/' + countryPrefix + '/furnitureProductDetails.html?sku=' + product.sku + '"><img width="100" height="100" alt="" class="img-responsive" src="' + product.imageUrl + '"></a>\
+                                                    </td>\
+                                                    <td class="product-name">\
+                                                        <a class="productDetails" href="/B/' + countryPrefix + '/furnitureProductDetails.html?sku=' + product.sku + '">' + product.itemName + '</a>\
+                                                    </td>\
+                                                    <td class="product-price">\
+                                                        $<span class="amount">' + product.retailPrice.toFixed(2) + '</span>\
+                                                    </td>\
+                                                    <td class="product-quantity">\
+                                                        <span class="qty">' + product.quantity + '</span>\
+                                                    </td>\
+                                                    <td class="product-subtotal">\
+                                                        $<span class="amount">' + product.retailPrice.toFixed(2) * product.quantity + '</span>\
+                                                    </td>\
+                                                </tr>';
+                                            finalPrice += product.retailPrice.toFixed(2) * product.quantity;
+                                            overallPrice += product.retailPrice.toFixed(2) * product.quantity;
+                                        }
+                                    }
+                                                                    htmlTxt += '\
+                                        <tr>\
+                                            <td></td>\
+                                            <td></td>\
+                                            <td></td>\
+                                            <td class="product-subtotal" style="font-weight: bold; color: #cc3b33">Total:</td>\
+                                            <td class="product-subtotal" style="font-weight: bold">\
+                                                $<span class="amount" id="finalPrice" name="finalPrice">' + finalPrice + '</span>\
                                             </td>\
-                                            <td class="product-name">\
-                                                <a class="productDetails" href="/B/' + countryPrefix + '/furnitureProductDetails.html?sku=' + product.sku + '">' + product.itemName + '</a>\
-                                            </td>\
-                                            <td class="product-price">\
-                                                $<span class="amount">' + product.retailPrice.toFixed(2) + '</span>\
-                                            </td>\
-                                            <td class="product-quantity">\
-                                                <span class="qty">' + product.quantity + '</span>\
-                                            </td>\
-                                            <td class="product-subtotal">\
-                                                $<span class="amount">' + product.retailPrice.toFixed(2) * product.quantity + '</span>\
-                                            </td>\
-                                        </tr>';
-                                    finalPrice += product.retailPrice.toFixed(2) * product.quantity;
-                                    overallPrice += product.retailPrice.toFixed(2) * product.quantity;
+                                        </tr>\
+                                    </tbody>\
+                                </table>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>';
+                                }
+                                    
+
+                            finalPrice = 0;
                                 }
                             }
-                            htmlTxt += '\
-                                                                <tr>\
-                                                                    <td></td>\
-                                                                    <td></td>\
-                                                                    <td></td>\
-                                                                    <td class="product-subtotal" style="font-weight: bold; color: #cc3b33">Total:</td>\
-                                                                    <td class="product-subtotal" style="font-weight: bold">\
-                                                                        $<span class="amount" id="finalPrice" name="finalPrice">' + finalPrice + '</span>\
-                                                                    </td>\
-                                                                </tr>\
-                                                            </tbody>\
-                                                        </table>\
-                                                    </div>\
-                                                </div>\
-                                            </div>\
-                                        </div>\
-                                    </div>\
-                                </div>';
-                            finalPrice = 0;
+                            //display table info
+                            // htmlTxt += '\
+                            //     <div class="row">\
+                            //         <div class="col-md-12">\
+                            //             <div class="row featured-boxes">\
+                            //                 <div class="col-md-12">\
+                            //                     <div class="featured-box featured-box-secundary featured-box-cart">\
+                            //                         <div class="box-content">\
+                            //                             <table cellspacing="0" class="shop_table cart">\
+                            //                                 <thead>\
+                            //                                     <tr>\
+                            //                                         <th class="product-thumbnail" style="width: 25%">Image</th>\
+                            //                                         <th class="product-name" style="width: 38%">Product</th>\
+                            //                                         <th class="product-price" style="width: 15%">Price</th>\
+                            //                                         <th class="product-quantity" style="width: 15%">Quantity</th>\
+                            //                                         <th class="product-subtotal" style="width: 15%">Subtotal</th>\
+                            //                                     </tr>\
+                            //                                 </thead>\
+                            //                                 <tbody>';
+
+
+                            // sales history bugfix: javier
+                            // ==========================================================
+                            // changed orderIdList[0] to orderIdList[y] (orderIdList[0] is hard coded)
+                            // moving this chunk inside the orders for loop.
+                            // for (y = 0; y < boughtItem.length; y++) {
+                            //     if (boughtItem[y].id == orderIdList[y]) {
+                            //         var product = boughtItem[y];
+                            //         htmlTxt += '\
+                            //             <tr class="cart_table_item">\
+                            //                 <td class="product-thumbnail">\
+                            //                     <a href="/B/' + countryPrefix + '/furnitureProductDetails.html?sku=' + product.sku + '"><img width="100" height="100" alt="" class="img-responsive" src="' + product.imageUrl + '"></a>\
+                            //                 </td>\
+                            //                 <td class="product-name">\
+                            //                     <a class="productDetails" href="/B/' + countryPrefix + '/furnitureProductDetails.html?sku=' + product.sku + '">' + product.itemName + '</a>\
+                            //                 </td>\
+                            //                 <td class="product-price">\
+                            //                     $<span class="amount">' + product.retailPrice.toFixed(2) + '</span>\
+                            //                 </td>\
+                            //                 <td class="product-quantity">\
+                            //                     <span class="qty">' + product.quantity + '</span>\
+                            //                 </td>\
+                            //                 <td class="product-subtotal">\
+                            //                     $<span class="amount">' + product.retailPrice.toFixed(2) * product.quantity + '</span>\
+                            //                 </td>\
+                            //             </tr>';
+                            //         finalPrice += product.retailPrice.toFixed(2) * product.quantity;
+                            //         overallPrice += product.retailPrice.toFixed(2) * product.quantity;
+                            //     }
+                            // }
+                            // htmlTxt += '\
+                            //                                     <tr>\
+                            //                                         <td></td>\
+                            //                                         <td></td>\
+                            //                                         <td></td>\
+                            //                                         <td class="product-subtotal" style="font-weight: bold; color: #cc3b33">Total:</td>\
+                            //                                         <td class="product-subtotal" style="font-weight: bold">\
+                            //                                             $<span class="amount" id="finalPrice" name="finalPrice">' + finalPrice + '</span>\
+                            //                                         </td>\
+                            //                                     </tr>\
+                            //                                 </tbody>\
+                            //                             </table>\
+                            //                         </div>\
+                            //                     </div>\
+                            //                 </div>\
+                            //             </div>\
+                            //         </div>\
+                            //     </div>';
+                            // finalPrice = 0;
 
                         htmlTxt += '<h4 style="font-weight: bold; padding-left: 20px">Total Amount Spent: $'+ overallPrice + '</h4>';
                         document.getElementById("salesHistoryTab").innerHTML = htmlTxt;
