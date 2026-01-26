@@ -25,7 +25,7 @@ class Member {
         this.sla = null;
         this.zipcode = null;
         this.loyaltyTierId = null;
-        this.countryId = null;
+        this.countryName = null;
         this.wishlistId = null;
         this.stripeCustomerId = null;
     }

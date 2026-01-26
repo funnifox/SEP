@@ -89,7 +89,7 @@ var memberDB = {
                     return reject(err);
                 }
                 else {
-                    var sql = 'SELECT * FROM memberentity m WHERE m.EMAIL=?';
+                    var sql = 'SELECT m.*, c.NAME as COUNTRY_NAME FROM memberentity m LEFT JOIN countryentity c ON m.country_id = c.COUNTRYCODE WHERE m.email = ?;';
                     conn.query(sql, [email], function (err, result) {
                         if (err) {
                             conn.end();
@@ -121,7 +121,7 @@ var memberDB = {
                             member.sla = result[0].SERVICELEVELAGREEMENT;
                             member.zipcode = result[0].ZIPCODE;
                             member.loyaltyTierId = result[0].LOYALTYTIER_ID;
-                            member.countryId = result[0].COUNTRY_ID;
+                            member.countryName = result[0].COUNTRY_NAME;
                             member.wishlistId = result[0].WISHLIST_ID;
                             member.stripeCustomerId = result[0].STRIPECUSTOMERID;
                             conn.end();
