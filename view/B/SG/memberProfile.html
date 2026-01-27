@@ -218,7 +218,19 @@
                 let ok = true;
 
                 // verify old password if user wants to change it
-                if (password || repassword) {
+                if (oldPassword || password || repassword) {
+
+                    // Prevent blank new password as followed by Change Request
+                    const blankRegex = /^\s*$/; // ^ means start of string, \s* zero or more space, $ means end of string
+
+                    // Trim password to remove spacing
+                    const trimmedPassword = password.trim();
+                    const trimmedRepassword = repassword.trim();
+                    if (blankRegex.test(trimmedPassword) || blankRegex.test(trimmedRepassword) ) {
+                        alert("New password cannot be blank or spaces only.");
+                        return;
+                    }
+
                     if (!oldPassword) {
                         alert("Please enter your old password to change it.");
                         return;
@@ -250,7 +262,7 @@
                         return;
                     }
 
-                    // Check  password match
+                    // Check password match
                     if (password !== repassword) {
                         alert("New passwords do not match.");
                         return;
