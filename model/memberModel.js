@@ -333,7 +333,11 @@ var memberDB = {
                 values.push(details.phone);
 
                 fields.push("CITY=?");
-                values.push(details.country);
+                values.push(details.city);
+
+                // simply copy value of city to country 
+                fields.push("COUNTRY_ID=(SELECT COUNTRYCODE FROM countryentity WHERE NAME = ?)");
+                values.push(details.country)
 
                 fields.push("ADDRESS=?");
                 values.push(details.address);
