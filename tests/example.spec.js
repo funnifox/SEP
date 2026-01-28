@@ -6,16 +6,6 @@ import { waitForDebugger } from 'node:inspector';
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
-
-
-// ===========================================================
-// Javier Tan Jia Ye
-// ===========================================================
-test('Sales History', async ({ page }) => {
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-});
 */
 
 //---------------------------------------
@@ -132,6 +122,12 @@ test('automated test for editing user profile', async ({ page }) => {
   // logout 
   await page.locator('a:has-text("Logout")').click();
 })
+
+// ===========================================================
+// Javier Tan Jia Ye
+// ===========================================================
+test('Sales History', async ({ page }) => {
+
   // login
   await page.goto('http://localhost:8081/B/selectCountry.html');
   await page.getByText('Singapore').click();
