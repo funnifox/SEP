@@ -91,7 +91,7 @@
                             // changed boughtItem.length to orderIdList.length 
                             for (j = 0; j < orderIdList.length; j++) {
                                 let counter = 0;
-                                htmlTxt += '<h5>Order #' + (j + 1) + '</h5>';
+                                htmlTxt += '<div data-testid='+ (j + 1)+' class="order"><h5>Order #' + (j + 1) + '</h5>';
                                 
 
                                 // sales history bugfix: javier
@@ -184,7 +184,7 @@
                     </div>\
                 </div>\
             </div>\
-        </div>';
+        </div></div>';
                                 }
                                     
 
