@@ -20,8 +20,8 @@ test('automated test for editing user profile', async ({ page }) => {
   await page.locator('a:has-text("Login/Register")').click();
 
   // ----------------- Step 1: Open Member Profile Page -----------------
-  await page.fill("#emailLogin", "dramatictan69@gmail.com");
-  await page.fill("#passwordLogin", "12345678");
+  await page.fill("#emailLogin", "junwei10255@gmail.com");
+  await page.fill("#passwordLogin", "junwei123");
   await page.click('input[type="submit"]');
 
   // ----------------- Step 2: Edit user info -----------------
@@ -30,7 +30,7 @@ test('automated test for editing user profile', async ({ page }) => {
   await page.fill("#phone", "91234567");
   await page.selectOption("#country", "Singapore");
   await page.fill("#address", "Blk 123");
-  await page.fill("#securityAnswer", "Mom");
+  await page.fill("#securityAnswer", "duck");
   await page.fill("#age", '20');
   await page.fill("#income", "1200");
 
@@ -49,7 +49,7 @@ test('automated test for editing user profile', async ({ page }) => {
 
   // ----------------- Step 5: Try updating password with empty new password -----------------
   // fill in password fields
-  await page.fill("#oldPassword", "12345678");
+  await page.fill("#oldPassword", "junwei123");
   await page.click('input[type="submit"]');
 
   // Expected Response: System show status with “New Password cannot be empty.” and prevents password update
@@ -73,7 +73,7 @@ test('automated test for editing user profile', async ({ page }) => {
   await expect(page.locator('#errDiv')).toHaveText('Old password is incorrect.');
 
   // ----------------- Step 8: Enter current password correctly in “Old Password“ field -----------------
-  await page.fill("#oldPassword", "12345678");
+  await page.fill("#oldPassword", "junwei123");
 
   // ----------------- Step 9:  Enter new password and re-enter password the desired new password -----------------
   await page.fill("#password", "I_Love_SEP01!");
@@ -87,15 +87,15 @@ test('automated test for editing user profile', async ({ page }) => {
 
   // ----------------- Step 11: Attempt to log in with old password -----------------
   await page.locator('a:has-text("Logout")').click(); // logout first
-  await page.fill("#emailLogin", "dramatictan69@gmail.com");
-  await page.fill("#passwordLogin", "12345678");
+  await page.fill("#emailLogin", "junwei10255@gmail.com");
+  await page.fill("#passwordLogin", "junwei123");
   await page.click('input[type="submit"]');
 
   // Expected Response: Login fails with a status message of “Login fail. Email or password is incorrect.” 
   await expect(page.locator('#errDiv')).toHaveText('Login fail. Email or password is incorrect.');
 
   // ---------------- Step 12: Log out and log in using new password ----------------
-  await page.fill("#emailLogin", "dramatictan69@gmail.com");
+  await page.fill("#emailLogin", "junwei10255@gmail.com");
   await page.fill("#passwordLogin", "I_Love_SEP01!");
   await page.click('input[type="submit"]');
 
@@ -108,10 +108,18 @@ test('automated test for editing user profile', async ({ page }) => {
 
 
   //-------------------------------- RESET TEST PASSWORD INFO ---------------------------------
+  // RESET fields to junwei
+  await page.fill("#name", "Jun Wei");
+  await page.fill("#phone", "98318888");
+  await page.selectOption("#country", "Singapore");
+  await page.fill("#address", "Toa Payoh");
+  await page.fill("#securityAnswer", "dog/cat");
+  await page.fill("#age", '19');
+  await page.fill("#income", "5060");
   // fill in password fields
   await page.fill("#oldPassword", "I_Love_SEP01!");
-  await page.fill("#password", "12345678");
-  await page.fill("#repassword", "12345678");
+  await page.fill("#password", "junwei123");
+  await page.fill("#repassword", "junwei123");
 
   // click submit button
   await page.click('input[type="submit"]');
