@@ -227,12 +227,18 @@
                     const trimmedPassword = password.trim();
                     const trimmedRepassword = repassword.trim();
                     if (blankRegex.test(trimmedPassword) || blankRegex.test(trimmedRepassword) ) {
-                        alert("New password cannot be blank or spaces only.");
+                        // alert("New password cannot be blank or spaces only.");
+
+                        const url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?errMsg=New Password cannot be empty.';
                         return;
                     }
 
                     if (!oldPassword) {
-                        alert("Please enter your old password to change it.");
+                        // alert("Please enter your old password to change it.");
+
+                        const url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?errMsg=Please enter your old password to change it.';
                         return;
                     }
 
@@ -253,7 +259,10 @@
                         const data = await response.json();
 
                         if (!data.success) {
-                            alert("Old password is incorrect.");
+                            // alert("Old password is incorrect.");
+
+                            const url = window.location.origin + window.location.pathname;
+                            window.location.href = url + '?errMsg=Old password is incorrect.';
                             return;
                         }
                     } catch (err) {
@@ -264,12 +273,18 @@
 
                     // Check password match
                     if (password !== repassword) {
-                        alert("New passwords do not match.");
+                        // alert("New passwords do not match.");
+
+                        const url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?errMsg=New passwords do not match.';
                         return;
                     }
 
                     if (password.length < 8) {
-                        alert("Password too short. Must be at least 8 characters.");
+                        // alert("Password too short. Must be at least 8 characters.");
+
+                        const url = window.location.origin + window.location.pathname;
+                        window.location.href = url + '?errMsg=Password too short. Must be at least 8 characters.';
                         return;
                     }
                 }
