@@ -187,3 +187,33 @@ test('Sales History', async ({ page }) => {
   expect(count2).toBeGreaterThan(count);
   
 });
+
+
+
+
+// ===========================================================
+// Teo Hock Yong Ignatius
+// ===========================================================
+test('member profile form is auto-filled after login', async ({ page }) => {
+  // login
+  await page.goto('http://localhost:8081/B/selectCountry.html');
+  await page.getByText('Singapore').click();
+  await page.getByText('Login/Register').click();
+  await page.fill('#emailLogin', 'junwei10255@gmail.com');
+  await page.fill('#passwordLogin', 'junwei123');
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  // 3. Wait for redirect
+  await page.waitForURL(
+    'http://localhost:8081/B/SG/memberProfile.html',
+    { timeout: 10000 }
+  );
+  
+  // 5. Assertions — auto-filled form
+  await expect(page.locator('#email')).toHaveValue('junwei10255@gmail.com');
+  await expect(page.locator('#name')).toHaveValue('Jun Wei');
+  await expect(page.locator('#phone')).toHaveValue('98318888');
+  await expect(page.locator('#address')).toHaveValue('Toa Payoh Lor 2');
+  await expect(page.locator('#country')).toHaveValue('Singapore');
+});
+
