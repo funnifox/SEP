@@ -194,11 +194,46 @@ test('Sales History', async ({ page }) => {
 // ===========================================================
 // Teo Hock Yong Ignatius
 // ===========================================================
+test('login fails with wrong email and password', async ({ page }) => {
+  await page.goto('http://localhost:8081/B/SG/memberLogin.html');
+
+  // Fill in invalid credentials
+  await page.fill('#emailLogin', 'wrong@example.com');
+  await page.fill('#passwordLogin', 'junwei123');
+  // Click login
+  await page.click('input[value="Login"]');
+
+  // Wait for redirect with error message in URL
+  await expect(page).toHaveURL(/errMsg=Login%20fail\.%20Email%20or%20password%20is%20incorrect\./);
+
+  // Assert error message is visible on page
+  await expect(
+    page.locator('text=Login fail. Email or password is incorrect.')
+  ).toBeVisible();
+});
+
+test('login fails with wrong email and password', async ({ page }) => {
+  await page.goto('http://localhost:8081/B/SG/memberLogin.html');
+
+  // Fill in invalid credentials
+  await page.fill('#emailLogin', 'junwei10255@gmail.com');
+  await page.fill('#passwordLogin', 'wrongpassword');
+
+  // Click login
+  await page.click('input[value="Login"]');
+
+  // Wait for redirect with error message in URL
+  await expect(page).toHaveURL(/errMsg=Login%20fail\.%20Email%20or%20password%20is%20incorrect\./);
+
+  // Assert error message is visible on page
+  await expect(
+    page.locator('text=Login fail. Email or password is incorrect.')
+  ).toBeVisible();
+});
+
 test('member profile form is auto-filled after login', async ({ page }) => {
   // login
-  await page.goto('http://localhost:8081/B/selectCountry.html');
-  await page.getByText('Singapore').click();
-  await page.getByText('Login/Register').click();
+  await page.goto('http://localhost:8081/B/memberLogin.html');
   await page.fill('#emailLogin', 'junwei10255@gmail.com');
   await page.fill('#passwordLogin', 'junwei123');
   await page.getByRole('button', { name: 'Login' }).click();
@@ -215,5 +250,17 @@ test('member profile form is auto-filled after login', async ({ page }) => {
   await expect(page.locator('#phone')).toHaveValue('98318888');
   await expect(page.locator('#address')).toHaveValue('Toa Payoh Lor 2');
   await expect(page.locator('#country')).toHaveValue('Singapore');
+  await expect(page.locator('#securityQuestion')).toHaveValue('2');
+  await expect(page.locator('#securityAnswer')).toHaveValue('dog/cat'); 
+  await expect(page.locator('#age')).toHaveValue('19');
+  await expect(page.locator('#income')).toHaveValue('5060');
+  await expect(page.locator('#serviceLevelAgreement')).toHaveValue('true');
+
+
+  // 6. Navigation bar - check status
+  await expect(page.locator('#menuLoggedIn')).toBeVisible();
+  await expect(page.locator('#menuLoggedOut')).toBeHidden();
+  await expect(page.locator('#memberName')).toHaveText('Welcome Jun Wei!');
+
 });
 
