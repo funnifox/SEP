@@ -28,7 +28,13 @@
                     }
                
                     document.getElementById("categoryLink").innerHTML = furniture.category;
+                    
+                    // Javier: fix for missing description display
+                    document.getElementById("description").innerHTML = furniture.description;
+
                     document.getElementById("categoryLink").setAttribute('href', '/B/' + countryPrefix
+
+                    
                         + '/furnitureCategory.html?cat=' + encodeURIComponent(furniture.category));
 
                     var selectOptions = '<option></option>';
