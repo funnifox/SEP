@@ -27,19 +27,56 @@ npm i
 
 ### Step 3: Run the server
 ```
+nvm use 8.12.0
+```
+```
 node server.js
 ```
 
-### Step 4: When logging in as a user
-You may get an error when registering and login due to the system requiring you to validate your account in your email.
+### Step 4: Ensure you are using the default database SQL tables so that the playwright test would fit
 
-- The email will not work due to possible TLS error due to your firewall. Instead go to your Workbench and go to the 'memberentity' table.
+<br>
+<br>
+<br>
 
-- Update ACCOUNTACTIVATIONSTATUS from 0 to 1 accordingly to your row. Below is the image for reference
+# Using Playwright for Automated Testing
+Since Playwright is avaliable for the more newer version of Node.js while Islandfurniture uses a outdated version, there is a workround for it to run the server in an outdated node.js while the testing is occuring at a later version
 
-![doc](./view/B/img/doc/image.png)
+### Step 1:
+Ensure islandfurniture is running on 8.12.0 of node.js
+```
+nvm ls 
+```
 
-- It should be able to login now.
+### Step 2:
+Start a new terminal by pressing the Plus button near the bottom right
+
+### Step 3:
+Run this command to change node.js to a later version
+```
+nvm use 24.10.0
+```
+
+### Step 4:
+You should have two terminal running 8.12.0 for server and 24.10.0 for your current terminal
+
+Now in that terminal running node.js 24.10.0, run this command to run the Playwright Test. 
+```
+npx playwright test --headed
+```
+
+Note:
+- --headed will cause a popup browser to show the test running live, remove --headed if you do not want the popup
+
+### Step 5: 
+Show latest report of test
+```
+npx playwright show-report
+```
+
+<br>
+<br>
+<br>
 
 # SQL NEW COMMANDS FOR TABLE AND INSERT
 ## First SQL for Showroom Category
