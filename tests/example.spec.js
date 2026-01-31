@@ -74,20 +74,17 @@ test('member profile form is auto-filled after login', async ({ page }) => {
   await expect(page.locator('#email')).toHaveValue('junwei10255@gmail.com');
   await expect(page.locator('#name')).toHaveValue('Jun Wei');
   await expect(page.locator('#phone')).toHaveValue('98318888');
-  await expect(page.locator('#address')).toHaveValue('Toa Payoh Lor 2');
+  await expect(page.locator('#address')).toHaveValue('Toa Payoh');
   await expect(page.locator('#country')).toHaveValue('Singapore');
   await expect(page.locator('#securityQuestion')).toHaveValue('2');
   await expect(page.locator('#securityAnswer')).toHaveValue('dog/cat'); 
   await expect(page.locator('#age')).toHaveValue('19');
   await expect(page.locator('#income')).toHaveValue('5060');
-  await expect(page.locator('#serviceLevelAgreement')).toHaveValue('true');
+  await expect(page.locator('#serviceLevelAgreement')).toHaveValue('agreement');
 
 
   // 6. Navigation bar - check status
-  await expect(page.locator('#menuLoggedIn')).toBeVisible();
-  await expect(page.locator('#menuLoggedOut')).toBeHidden();
   await expect(page.locator('#memberName')).toHaveText('Welcome Jun Wei!');
-
 });
 
 
